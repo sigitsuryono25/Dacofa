@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/StudioProject/Dacofa/app/src/main/res/drawable/bg_edittext.xml" value="0.371875" />
+        <entry key="..\:/StudioProject/Dacofa/app/src/main/res/drawable/ic_indonesia_svgrepo_com.xml" value="0.371875" />
+        <entry key="..\:/StudioProject/Dacofa/app/src/main/res/drawable/ic_reply.xml" value="0.371875" />
+        <entry key="..\:/StudioProject/Dacofa/app/src/main/res/drawable/ic_sign_out_alt_solid.xml" value="0.371875" />
+        <entry key="..\:/StudioProject/Dacofa/app/src/main/res/drawable/ic_united_states_svgrepo_com.xml" value="0.371875" />
+        <entry key="..\:/StudioProject/Dacofa/app/src/main/res/font/.xml" value="0.3859375" />
+        <entry key="..\:/StudioProject/Dacofa/app/src/main/res/layout/activity_detail_hasil_tangkapan.xml" value="0.33" />
+        <entry key="..\:/StudioProject/Dacofa/app/src/main/res/layout/activity_isi_data.xml" value="0.33" />
+        <entry key="..\:/StudioProject/Dacofa/app/src/main/res/layout/activity_landing.xml" value="0.34444444444444444" />
+        <entry key="..\:/StudioProject/Dacofa/app/src/main/res/layout/activity_main.xml" value="0.35572916666666665" />
+        <entry key="..\:/StudioProject/Dacofa/app/src/main/res/layout/bg_layout.xml" value="0.34444444444444444" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

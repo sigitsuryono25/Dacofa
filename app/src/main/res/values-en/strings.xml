@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Dacofa</string>
+    <string name="id_pengguna">USER ID</string>
+    <string name="kata_sandi">PASSWORD</string>
+    <string name="masuk">login</string>
+    <string name="lupa_password">Forogt Password</string>
+    <string name="copyright_2021">Copyright 2021</string>
+    <string name="dacofa">Dacofa</string>
+    <string name="lihat_data">View Data</string>
+    <string name="isi_data">Entry Data</string>
+    <string name="bahasa">Language</string>
+
+    <string-array name="country">
+        <item>Indonesia</item>
+        <item>Malaysia</item>
+        <item>Thailand</item>
+    </string-array>
+    <string name="tanggal">Date</string>
+    <string name="inch">Inch</string>
+    <string name="unit">Unit</string>
+    <string name="jumlah_alat_tangkap">Amount of Fishing Gear</string>
+    <string name="ukuran_jaring">Mesh Size</string>
+    <string name="alat_tangkap">Fishing Gear</string>
+    <string name="provinsi">Province</string>
+    <string name="pilih_provinsi">-- Choose Province --</string>
+    <string name="pilih_kabupaten">-- Choose District --</string>
+    <string name="kabupaten">District</string>
+    <string name="jam">Hour</string>
+    <string name="lama_operasi">Operation Type</string>
+    <string name="lainnya">Others</string>
+    <string name="harga">Price</string>
+    <string name="total_tangkapan">Total Catch</string>
+    <string name="nama_ikan">Name of Ifsh</string>
+    <string name="mata_uang">Currency</string>
+    <string name="selesai">Finish</string>
+    <string name="isi_data_nselanjutnya">Entry\nNext Data</string>
+    <string name="data_nsebelumnya">Previous\nData</string>
+</resources>
