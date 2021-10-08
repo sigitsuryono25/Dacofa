@@ -1,46 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Dacofa</string>
-    <string name="id_pengguna">ID PENGGUNA</string>
-    <string name="kata_sandi">KATA SANDI</string>
-    <string name="masuk">Masuk</string>
-    <string name="lupa_password">Lupa Password</string>
+    <string name="id_pengguna">USER ID</string>
+    <string name="kata_sandi">PASSWORD</string>
+    <string name="masuk">login</string>
+    <string name="lupa_password">Forgot Password</string>
     <string name="copyright_2021">Copyright 2021</string>
     <string name="dacofa">Dacofa</string>
-    <string name="lihat_data">lihat Data</string>
-    <string name="isi_data">isi data</string>
-    <string name="bahasa">Bahasa</string>
-    <string name="tanggal">Tanggal</string>
-    <string name="alat_tangkap">Alat Tangkap</string>
-    <string name="inch">Inch</string>
-    <string name="ukuran_jaring">Ukuran Jaring</string>
-    <string name="jumlah_alat_tangkap">Jumlah Alat Tangkap</string>
-    <string name="unit">Unit</string>
-    <string name="negara" translatable="false">Negara</string>
-    <string name="provinsi">Provinsi</string>
-    <string name="pilih_provinsi">-- Pilih Provinsi --</string>
-    <string name="pilih_kabupaten">-- Pilih Kabupaten --</string>
-    <string name="kabupaten">Kabupaten</string>
-    <string name="area_penangkapan" translatable="false">Area Penangkapan</string>
-    <string name="jam">Jam</string>
-    <string name="lama_operasi">Lama Operasi</string>
-    <string name="ok" translatable="false">Ok</string>
-    <string name="lainnya">Lainnya</string>
-    <string name="data_collection_of_fishery_activity" translatable="false">Data Collection of Fishery Activity</string>
-    <string name="nama_ikan">Nama Ikan</string>
+    <string name="lihat_data">View Data</string>
+    <string name="isi_data">Entry Data</string>
+    <string name="bahasa">Language</string>
     <string name="kg" translatable="false">KG</string>
-    <string name="total_tangkapan">Total Tangkapan</string>
     <string name="per_kg" translatable="false">/KG</string>
-    <string name="harga">Harga</string>
-    <string name="mata_uang">Mata Uang</string>
-    <string name="selesai">Selesai</string>
-    <string name="isi_data_nselanjutnya">Isi Data\nSelanjutnya</string>
-    <string name="data_nsebelumnya">Data\nSebelumnya</string>
 
+    <string name="data_collection_of_fishery_activity" translatable="false">Data Collection of Fishery Activity</string>
     <string-array name="country">
         <item>Indonesia</item>
         <item>Malaysia</item>
         <item>Thailand</item>
     </string-array>
+    <string name="tanggal">Date</string>
+    <string name="inch">Inch</string>
+    <string name="unit">Unit</string>
+    <string name="jumlah_alat_tangkap">Amount of Fishing Gear</string>
+    <string name="ukuran_jaring">Mesh Size</string>
+    <string name="alat_tangkap">Fishing Gear</string>
+    <string name="provinsi">Province</string>
+    <string name="pilih_provinsi">-- Choose Province --</string>
+    <string name="pilih_kabupaten">-- Choose District --</string>
+    <string name="kabupaten">District</string>
+    <string name="jam">Hour</string>
+    <string name="lama_operasi">Operation Type</string>
+    <string name="lainnya">Others</string>
+    <string name="harga">Price</string>
+    <string name="total_tangkapan">Total Catch</string>
+    <string name="nama_ikan">Name of Ifsh</string>
+    <string name="mata_uang">Currency</string>
+    <string name="selesai">Finish</string>
+    <string name="isi_data_nselanjutnya">Entry\nNext Data</string>
+    <string name="data_nsebelumnya">Previous\nData</string>
+    <string name="negara">Country</string>
 
     <string-array name="currency">
         <item>Indonesian Rupiah (IDR)</item>
@@ -54,4 +53,7 @@
         <item>Waduk</item>
         <item>Estuari</item>
     </string-array>
+    <string name="area_penangkapan">Fishing Area</string>
+    <string name="ok" translatable="false">Ok</string>
+    <string name="search">Search</string>
 </resources>

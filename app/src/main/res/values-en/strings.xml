@@ -4,7 +4,7 @@
     <string name="id_pengguna">USER ID</string>
     <string name="kata_sandi">PASSWORD</string>
     <string name="masuk">login</string>
-    <string name="lupa_password">Forogt Password</string>
+    <string name="lupa_password">Forgot Password</string>
     <string name="copyright_2021">Copyright 2021</string>
     <string name="dacofa">Dacofa</string>
     <string name="lihat_data">View Data</string>
@@ -36,4 +36,7 @@
     <string name="selesai">Finish</string>
     <string name="isi_data_nselanjutnya">Entry\nNext Data</string>
     <string name="data_nsebelumnya">Previous\nData</string>
+    <string name="negara">Country</string>
+    <string name="area_penangkapan" >Fishing Area</string>
+    <string name="search">Search</string>
 </resources>

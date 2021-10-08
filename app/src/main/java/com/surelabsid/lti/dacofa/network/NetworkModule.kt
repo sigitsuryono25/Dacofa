@@ -7,12 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 object NetworkModule {
-
-    //    const val BASE_URL = "http://192.168.18.114/CodeIgniter/AdminKlipper/index.php/"
-    const val BASE_URL = ""
-
-
-    const val FIREBASE_URL = "https://fcm.googleapis.com/"
+    const val BASE_URL = "http://192.168.18.114/dacofa/index.php/"
 
     private fun getOkHttp(): OkHttpClient {
         val logging = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC)
@@ -28,18 +23,6 @@ object NetworkModule {
             .addConverterFactory(GsonConverterFactory.create())
             .client(getOkHttp())
             .build()
-    }
-
-    private fun getRetrofitFCM(): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(FIREBASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(getOkHttp())
-            .build()
-    }
-
-    fun getFcmService(): ApiService {
-        return getRetrofitFCM().create(ApiService::class.java)
     }
 
     fun getService(): ApiService {
