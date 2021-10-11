@@ -4,29 +4,29 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.surelabsid.lti.dacofa.databinding.ItemAdapterListBinding
-import com.surelabsid.lti.dacofa.response.DataProvItem
+import com.surelabsid.lti.dacofa.response.DataIkanItem
 
-class AdapterListProvinsi(
-    private val onProvClick: (DataProvItem?) -> Unit
-) : RecyclerView.Adapter<AdapterListProvinsi.ViewHolder>() {
-    private var mListProv: MutableList<DataProvItem?> = mutableListOf()
+class AdapterListIkan(
+    private val onIkanClick: (DataIkanItem?) -> Unit
+) : RecyclerView.Adapter<AdapterListIkan.ViewHolder>() {
+
+    private var mListIkan: MutableList<DataIkanItem?> = mutableListOf()
 
     inner class ViewHolder(private val itemAdapterListBinding: ItemAdapterListBinding) :
         RecyclerView.ViewHolder(itemAdapterListBinding.root) {
 
-        fun onBindItem(dataProvItem: DataProvItem?) {
-            itemAdapterListBinding.nama.text = dataProvItem?.nama
-            itemView.setOnClickListener {
-                onProvClick(dataProvItem)
+        fun onBindItem(dataIkanItem: DataIkanItem?) {
+            itemAdapterListBinding.nama.text = dataIkanItem?.namaIkan
+            itemAdapterListBinding.root.setOnClickListener {
+                onIkanClick(dataIkanItem)
             }
         }
     }
 
-    fun addItem(listProv: List<DataProvItem?>, clearit: Boolean = false) {
-//        if (clearit)
-//            mListProv.removeAll(mListProv)
-
-        mListProv = listProv.toMutableList()
+    fun addItem(newListKab: List<DataIkanItem?>, clearIt: Boolean = false) {
+        if (clearIt)
+            mListIkan.removeAll(mListIkan)
+        this.mListIkan = newListKab.toMutableList()
         notifyDataSetChanged()
     }
 
@@ -37,14 +37,16 @@ class AdapterListProvinsi(
             parent,
             false
         )
-        return ViewHolder(binding)
+        return ViewHolder(
+            binding
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.onBindItem(mListProv[position])
+        holder.onBindItem(mListIkan.get(position))
     }
 
     override fun getItemCount(): Int {
-        return mListProv.size
+        return mListIkan.size
     }
 }

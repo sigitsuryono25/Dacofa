@@ -34,7 +34,7 @@
     <string name="lainnya">Others</string>
     <string name="harga">Price</string>
     <string name="total_tangkapan">Total Catch</string>
-    <string name="nama_ikan">Name of Ifsh</string>
+    <string name="nama_ikan">Name of Fish</string>
     <string name="mata_uang">Currency</string>
     <string name="selesai">Finish</string>
     <string name="isi_data_nselanjutnya">Entry\nNext Data</string>
@@ -56,4 +56,10 @@
     <string name="area_penangkapan">Fishing Area</string>
     <string name="ok" translatable="false">Ok</string>
     <string name="search">Search</string>
+    <string name="choose_country">--Choose Country--</string>
+    <string name="choose_countries">Choose Country</string>
+    <string name="choose_pro">Choose Province</string>
+    <string name="choose_district">Choose District</string>
+    <string name="location">Location</string>
+    <string name="please_fill_all">Please fill all columns</string>
 </resources>

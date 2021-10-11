@@ -24,6 +24,9 @@ data class HeaderLokasi(
     @ColumnInfo(name = "lama_operasi")
     val lamaOperasi: String,
 
+    @ColumnInfo(name = "area")
+    val fishingArea: String,
+
     @ColumnInfo(name = "userid")
     val userid: String
 )

@@ -4,29 +4,29 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.surelabsid.lti.dacofa.databinding.ItemAdapterListBinding
-import com.surelabsid.lti.dacofa.response.DataKabItem
+import com.surelabsid.lti.dacofa.response.DataNegaraItem
 
-class AdapterListKabupaten(
-    private val onKabClick: (DataKabItem?) -> Unit
-) : RecyclerView.Adapter<AdapterListKabupaten.ViewHolder>() {
+class AdapterListNegara(
+    private val onNegaraClick: (DataNegaraItem?) -> Unit
+) : RecyclerView.Adapter<AdapterListNegara.ViewHolder>() {
 
-    private var mListKab: MutableList<DataKabItem?> = mutableListOf()
+    private var mListNegara: MutableList<DataNegaraItem?> = mutableListOf()
 
     inner class ViewHolder(private val itemAdapterListBinding: ItemAdapterListBinding) :
         RecyclerView.ViewHolder(itemAdapterListBinding.root) {
 
-        fun onBindItem(dataKabItem: DataKabItem?) {
-            itemAdapterListBinding.nama.text = dataKabItem?.nama
+        fun onBindItem(dataKabItem: DataNegaraItem?) {
+            itemAdapterListBinding.nama.text = dataKabItem?.name
             itemAdapterListBinding.root.setOnClickListener {
-                onKabClick(dataKabItem)
+                onNegaraClick(dataKabItem)
             }
         }
     }
 
-    fun addItem(newListKab: List<DataKabItem?>, clearIt: Boolean = false) {
+    fun addItem(newListKab: List<DataNegaraItem?>, clearIt: Boolean = false) {
         if (clearIt)
-            mListKab.removeAll(mListKab)
-        this.mListKab = newListKab.toMutableList()
+            mListNegara.removeAll(mListNegara)
+        this.mListNegara = newListKab.toMutableList()
         notifyDataSetChanged()
     }
 
@@ -43,10 +43,10 @@ class AdapterListKabupaten(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.onBindItem(mListKab.get(position))
+        holder.onBindItem(mListNegara.get(position))
     }
 
     override fun getItemCount(): Int {
-        return mListKab.size
+        return mListNegara.size
     }
 }

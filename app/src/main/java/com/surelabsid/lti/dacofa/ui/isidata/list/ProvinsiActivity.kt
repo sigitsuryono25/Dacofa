@@ -1,5 +1,6 @@
-package com.surelabsid.lti.dacofa.ui.isidata
+package com.surelabsid.lti.dacofa.ui.isidata.list
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -10,40 +11,45 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.surelabsid.lti.dacofa.R
+import com.surelabsid.lti.dacofa.databinding.ActivityProvinsiBinding
 import com.surelabsid.lti.dacofa.network.NetworkModule
 import com.surelabsid.lti.dacofa.response.DataProvItem
 import com.surelabsid.lti.dacofa.response.ResponseProvinsi
+import com.surelabsid.lti.dacofa.ui.isidata.IsiDataActivity
 import com.surelabsid.lti.dacofa.ui.isidata.adapter.AdapterListProvinsi
-import kotlinx.android.synthetic.main.activity_provinsi.*
 import retrofit2.Call
 import retrofit2.Response
 
 class ProvinsiActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityProvinsiBinding
     private var listProv: List<DataProvItem?>? = null
     private lateinit var adapter: AdapterListProvinsi
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_provinsi)
+        binding = ActivityProvinsiBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         supportActionBar?.apply {
-            title = "Pilih Provinsi"
+            title = getString(R.string.choose_pro)
             setDisplayHomeAsUpEnabled(true)
         }
 
         adapter = AdapterListProvinsi {
-            with(Intent(this@ProvinsiActivity, KabupatenActivity::class.java)) {
-                putExtra(KabupatenActivity.ID_PROVINSI, it?.id)
-                startActivity(this)
-            }
+            val i = Intent()
+            i.putExtra(PROVINCE_ID, it?.id)
+            i.putExtra(PROVINCE_NAME, it?.nama)
+            setResult(Activity.RESULT_OK, i)
+            finish()
         }
         listProv?.let { adapter.addItem(it) }
-        rvProvinsi.adapter = this.adapter
-        rvProvinsi.layoutManager = LinearLayoutManager(
+        binding.rvProvinsi.adapter = this.adapter
+        binding.rvProvinsi.layoutManager = LinearLayoutManager(
             this
         )
 
-        this.getProvinsi()
+        val countryCode = intent.getStringExtra(IsiDataActivity.NEGARA)
+        this.getProvinsi(countryCode)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -57,7 +63,6 @@ class ProvinsiActivity : AppCompatActivity() {
 
         searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-
                 return true
             }
 
@@ -71,10 +76,7 @@ class ProvinsiActivity : AppCompatActivity() {
                 }
                 return false
             }
-
         })
-
-
         return true
     }
 
@@ -99,8 +101,8 @@ class ProvinsiActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun getProvinsi() {
-        NetworkModule.getService().getListProvinsi()
+    private fun getProvinsi(countryCode: String?) {
+        NetworkModule.getService().getListProvinsi(countryCode)
             .enqueue(object : retrofit2.Callback<ResponseProvinsi> {
                 override fun onResponse(
                     call: Call<ResponseProvinsi>,
@@ -115,5 +117,10 @@ class ProvinsiActivity : AppCompatActivity() {
                     Toast.makeText(this@ProvinsiActivity, t.message, Toast.LENGTH_SHORT).show()
                 }
             })
+    }
+
+    companion object {
+        const val PROVINCE_ID = "provinceId"
+        const val PROVINCE_NAME = "provinceName"
     }
 }

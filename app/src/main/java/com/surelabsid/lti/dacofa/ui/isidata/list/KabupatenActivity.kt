@@ -1,4 +1,4 @@
-package com.surelabsid.lti.dacofa.ui.isidata
+package com.surelabsid.lti.dacofa.ui.isidata.list
 
 import android.app.Activity
 import android.content.Intent
@@ -8,38 +8,42 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.surelabsid.lti.dacofa.R
+import com.surelabsid.lti.dacofa.databinding.ActivityKabupatenBinding
 import com.surelabsid.lti.dacofa.network.NetworkModule
 import com.surelabsid.lti.dacofa.response.DataKabItem
 import com.surelabsid.lti.dacofa.response.ResponseKabupaten
+import com.surelabsid.lti.dacofa.ui.isidata.IsiDataActivity
 import com.surelabsid.lti.dacofa.ui.isidata.adapter.AdapterListKabupaten
-import kotlinx.android.synthetic.main.activity_kabupaten.*
 import retrofit2.Call
 import retrofit2.Response
 
 class KabupatenActivity : AppCompatActivity() {
-
+    private lateinit var binding : ActivityKabupatenBinding
     private lateinit var adapter: AdapterListKabupaten
     private var mListKabupaten: List<DataKabItem?>? = null
     private var idProvinsi: String? = null
     private var idKabupaten: String? = null
+    private var kabupatenName: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_kabupaten)
+        binding = ActivityKabupatenBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         supportActionBar?.apply {
-            title = "Pilih Kabupaten"
+            title = getString(R.string.choose_district)
             setDisplayHomeAsUpEnabled(true)
         }
 
         adapter = AdapterListKabupaten {
             idKabupaten = it?.id
+            kabupatenName = it?.nama
             getData()
         }
-        rvKabupaten.adapter = this.adapter
-        rvKabupaten.layoutManager = LinearLayoutManager(this)
+        binding.rvKabupaten.adapter = this.adapter
+        binding.rvKabupaten.layoutManager = LinearLayoutManager(this)
 
-        idProvinsi = intent.getStringExtra(ID_PROVINSI)
+        idProvinsi = intent.getStringExtra(IsiDataActivity.PROV)
         idProvinsi?.let {
             getKab(it)
         }
@@ -56,8 +60,8 @@ class KabupatenActivity : AppCompatActivity() {
 
     private fun getData() {
         val intentData = Intent()
-        intentData.putExtra(SELECTED_PROV, idProvinsi)
-        intentData.putExtra(SELECTED_KAB, idKabupaten)
+        intentData.putExtra(KAB_ID, idKabupaten)
+        intentData.putExtra(KAB_NAME, kabupatenName)
         setResult(Activity.RESULT_OK, intentData)
         finish()
     }
@@ -84,8 +88,7 @@ class KabupatenActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val ID_PROVINSI = "idProvinsi"
-        const val SELECTED_PROV = "selectedProv"
-        const val SELECTED_KAB = "selectedKab"
+        const val KAB_ID = "kabupatenId"
+        const val KAB_NAME = "kabupatenName"
     }
 }

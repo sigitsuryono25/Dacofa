@@ -55,13 +55,12 @@
                     android:textStyle="bold" />
 
 
-                <com.google.android.material.textfield.TextInputEditText
+                <TextView
                     android:id="@+id/namaIkan"
                     android:layout_width="match_parent"
+                    android:textSize="18sp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_edittext"
-                    android:importantForAutofill="no"
-                    android:inputType="text" />
+                    android:background="@drawable/bg_edittext" />
 
             </TableRow>
 
@@ -85,7 +84,7 @@
                     android:layout_height="wrap_content">
 
                     <EditText
-                        android:id="@+id/ukuranJaring"
+                        android:id="@+id/totalTangkapan"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"

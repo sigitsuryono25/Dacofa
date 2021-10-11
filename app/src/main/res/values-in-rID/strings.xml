@@ -38,6 +38,12 @@
     </string-array>
     <string name="area_penangkapan">Area Penangkapan</string>
     <string name="search">Cari</string>
+    <string name="choose_country">-- Pilih Negara --</string>
+    <string name="choose_countries">Pilih Negara</string>
+    <string name="choose_pro">Pilih Provinsi</string>
+    <string name="choose_district">Pilih Kabupaten</string>
+    <string name="location">Lokasi</string>
+    <string name="please_fill_all">Silahkan isi semua kolom</string>
 
 
 </resources>

@@ -1,9 +1,11 @@
 package com.surelabsid.lti.dacofa
 
 import android.app.Application
-import android.content.res.Configuration
+import android.content.Context
 import androidx.room.Room
 import com.surelabsid.lti.dacofa.database.DatabaseApp
+import com.surelabsid.lti.dacofa.utils.LocalizationUtil
+import java.util.*
 
 lateinit var db: DatabaseApp
 
@@ -13,8 +15,16 @@ class App : Application() {
         db = Room.databaseBuilder(baseContext, DatabaseApp::class.java, "db_dacofa").build()
     }
 
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(LocalizationUtil.applyLang(newBase, Locale(LANGUAGE)))
+    }
 
+    override fun getApplicationContext(): Context {
+        val context = super.getApplicationContext()
+        return LocalizationUtil.applyLang(context, Locale(LANGUAGE))
+    }
+
+    companion object{
+        var LANGUAGE = "en"
     }
 }

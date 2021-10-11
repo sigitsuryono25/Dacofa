@@ -1,39 +1,38 @@
 package com.surelabsid.lti.dacofa
 
-import android.app.Activity
-import android.content.res.Configuration
-import android.content.res.Resources
+import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
+import com.surelabsid.lti.dacofa.base.Baseapp
+import com.surelabsid.lti.dacofa.databinding.ActivityMainBinding
+import com.surelabsid.lti.dacofa.ui.isidata.IsiDataActivity
+import com.surelabsid.lti.dacofa.ui.landing.LandingActivity
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : Baseapp() {
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
+
+        setContentView(binding.root)
 
 
-        indonesia.setOnClickListener {
-            this.setLocale(this@MainActivity, "en-us")
+        binding.indonesia.setOnClickListener {
+            reloadActivity("id")
         }
 
-        english.setOnClickListener {
-            this.setLocale(this@MainActivity, "en")
+        binding.english.setOnClickListener {
+            reloadActivity("en")
+        }
+
+        binding.masuk.setOnClickListener {
+            with(Intent(this, LandingActivity::class.java)) {
+                startActivity(this)
+            }
         }
     }
 
-    fun setLocale(activity: Activity, languageCode: String) {
-        val languageToLoad = "en-us" // your language
-        val locale = Locale(languageToLoad)
-        Locale.setDefault(locale)
-        val config = Configuration()
-        config.locale = locale
-        activity.resources.updateConfiguration(
-            config,
-            activity.resources.displayMetrics
-        )
-    }
+
 }
