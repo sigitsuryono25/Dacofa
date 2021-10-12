@@ -10,12 +10,21 @@ interface DetailTangkapanDao {
     @Query("SELECT * FROM tb_detail_tangkapan WHERE id_header = :idHeader")
     fun getAllTangakapanByIdHeader(idHeader: String): List<DetailTangkapan>
 
+    @Query("SELECT * FROM tb_detail_tangkapan")
+    fun getAllTangakapan(): List<DetailTangkapan>
+
 
     @Query("SELECT * FROM tb_detail_tangkapan WHERE id_detail = :idDetail")
     fun getAllTangakapanByIdDetail(idDetail: String): List<DetailTangkapan>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllData(vararg headerLokasi: DetailTangkapan)
+
+    @Query("DELETE FROM tb_detail_tangkapan WHERE id_detail = :idDetail")
+    fun deleteWhere(idDetail: String) : Int
+
+    @Query("DELETE FROM tb_detail_tangkapan WHERE id_header = :idHeader")
+    fun deleteByByIdHeader(idHeader: String) : Int
 
     @Query("DELETE FROM tb_detail_tangkapan")
     fun clearData()

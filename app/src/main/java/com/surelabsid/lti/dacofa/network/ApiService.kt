@@ -1,9 +1,6 @@
 package com.surelabsid.lti.dacofa.network
 
-import com.surelabsid.lti.dacofa.response.ResponseIkan
-import com.surelabsid.lti.dacofa.response.ResponseKabupaten
-import com.surelabsid.lti.dacofa.response.ResponseNegara
-import com.surelabsid.lti.dacofa.response.ResponseProvinsi
+import com.surelabsid.lti.dacofa.response.*
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -20,5 +17,8 @@ interface ApiService {
 
     @GET("Api_ikan/getListIkan")
     fun getListIkan(): retrofit2.Call<ResponseIkan>
+
+    @GET("Api_fishinggear/getFishingGear")
+    fun getFishingGear(): retrofit2.Call<ResponseFishingGear>
 
 }

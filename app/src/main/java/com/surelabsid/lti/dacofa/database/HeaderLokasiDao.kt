@@ -13,6 +13,9 @@ interface HeaderLokasiDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllData(vararg headerLokasi: HeaderLokasi)
 
+    @Query("DELETE FROM tb_header_lokasi WHERE id = :idLokasi")
+    fun deleteHeader(idLokasi: String): Int
+
     @Query("DELETE FROM tb_header_lokasi")
     fun clearData()
 }

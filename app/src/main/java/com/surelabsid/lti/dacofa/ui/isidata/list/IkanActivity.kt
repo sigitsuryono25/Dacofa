@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.surelabsid.lti.dacofa.R
 import com.surelabsid.lti.dacofa.base.Baseapp
 import com.surelabsid.lti.dacofa.databinding.ActivityIkanBinding
 import com.surelabsid.lti.dacofa.network.NetworkModule
@@ -18,6 +19,11 @@ class IkanActivity : Baseapp() {
         super.onCreate(savedInstanceState)
         binding = ActivityIkanBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        supportActionBar?.apply {
+            title =  getString(R.string.choose_fish_name)
+            setDisplayHomeAsUpEnabled(true)
+        }
 
         this.getListIkan()
     }

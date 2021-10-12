@@ -14,8 +14,12 @@
         android:theme="@style/Theme.Dacofa.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ui.isidata.list.IkanActivity"
+            android:name=".ui.lihatdata.LihatDetailActivity"
             android:exported="true" />
+        <activity
+            android:name=".ui.isidata.list.IkanActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Dacofa" />
         <activity
             android:name=".ui.isidata.list.NegaraActivity"
             android:exported="true"
@@ -27,7 +31,6 @@
         <activity
             android:name=".ui.isidata.list.ProvinsiActivity"
             android:exported="true"
-            android:label=""
             android:theme="@style/Theme.Dacofa" />
         <activity
             android:name=".ui.isidata.DaftarIkanActivity"

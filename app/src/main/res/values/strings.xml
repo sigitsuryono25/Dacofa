@@ -62,4 +62,15 @@
     <string name="choose_district">Choose District</string>
     <string name="location">Location</string>
     <string name="please_fill_all">Please fill all columns</string>
+    <string name="choose_fish_name">Choose the Fish Name</string>
+    <string name="need_to_validate">Need to Validate</string>
+    <string name="valid">Valid</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="validate">Validate</string>
+    <string name="delete_data">delete this data?</string>
+    <string name="confirm">Confirmation</string>
+    <string name="catch_result">Catch Result</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="add">Add</string>
 </resources>

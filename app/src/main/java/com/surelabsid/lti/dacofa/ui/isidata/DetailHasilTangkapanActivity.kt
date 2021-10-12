@@ -10,12 +10,14 @@ import com.surelabsid.lti.dacofa.databinding.ActivityDetailHasilTangkapanBinding
 import com.surelabsid.lti.dacofa.db
 import com.surelabsid.lti.dacofa.ui.isidata.list.IkanActivity
 import org.jetbrains.anko.doAsyncResult
+import org.jetbrains.anko.toast
 
 class DetailHasilTangkapanActivity : Baseapp() {
     private lateinit var binding: ActivityDetailHasilTangkapanBinding
     private var namaIkan: String? = null
     private var listIdDetail = mutableListOf<String>()
     private var initIndex = 0
+    private var isViewer = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,10 +31,10 @@ class DetailHasilTangkapanActivity : Baseapp() {
             this.getPreviousData()
         }
         binding.entryNextData.setOnClickListener {
-//            val getNextData = this.getNextData()
-//            if (!getNextData)
+            if (!isViewer)
                 insertData(headerId)
-
+            else
+                this.getNextData()
         }
 
         binding.namaIkan.setOnClickListener {
@@ -40,47 +42,56 @@ class DetailHasilTangkapanActivity : Baseapp() {
                 startActivityForResult(this, IKAN_REQ)
             }
         }
+
+        binding.selesai.setOnClickListener {
+            finish()
+        }
     }
 
     private fun getPreviousData() {
         if (initIndex != 0) {
-            var detail: List<DetailTangkapan> = listOf()
+            var detail: List<DetailTangkapan>
             val idDetail = listIdDetail[--initIndex]
+            toast(idDetail)
             doAsyncResult({
                 showMessage(it.message.toString())
             }, {
                 detail = db.detailTangkapanDao().getAllTangakapanByIdDetail(idDetail)
+                runOnUiThread {
+                    detail.map {
+                        binding.namaIkan.text = it.idIkan
+                        binding.totalTangkapan.setText(it.totalTangkapan)
+                        binding.harga.setText(it.harga)
+                    }
+                }
             })
-
-            detail.map {
-                binding.namaIkan.text = it.idIkan
-                binding.totalTangkapan.setText(it.totalTangkapan)
-                binding.harga.setText(it.harga)
-            }
         } else {
             showMessage("Tidak ada data yang ditampilkan")
         }
+        isViewer = true
     }
 
-    private fun getNextData(): Boolean {
-        if (initIndex != 0) {
-            var detail: List<DetailTangkapan> = listOf()
-            val idDetail = listIdDetail[initIndex++]
+    private fun getNextData() {
+        toast((initIndex++).toString())
+        if (initIndex >= 0 && initIndex < listIdDetail.size) {
+            var detail: List<DetailTangkapan>
+            val idDetail = listIdDetail[initIndex]
             doAsyncResult({
                 showMessage(it.message.toString())
             }, {
                 detail = db.detailTangkapanDao().getAllTangakapanByIdDetail(idDetail)
+                runOnUiThread {
+                    detail.map {
+                        binding.namaIkan.text = it.idIkan
+                        binding.totalTangkapan.setText(it.totalTangkapan)
+                        binding.harga.setText(it.harga)
+                    }
+                }
             })
-
-            detail.map {
-                binding.namaIkan.text = it.idIkan
-                binding.totalTangkapan.setText(it.totalTangkapan)
-                binding.harga.setText(it.harga)
-            }
-            return true
         } else {
             showMessage("Tidak ada data yang ditampilkan")
-            return false
+            this.resetForm()
+            isViewer = false
         }
     }
 
@@ -109,11 +120,14 @@ class DetailHasilTangkapanActivity : Baseapp() {
             listIdDetail.add(idDetail)
             initIndex++
             showMessage("Data berhasil disimpan")
-
-            binding.namaIkan.text = ""
-            binding.totalTangkapan.setText("")
-            binding.harga.setText("")
+            this.resetForm()
         }
+    }
+
+    private fun resetForm() {
+        binding.namaIkan.text = ""
+        binding.totalTangkapan.setText("")
+        binding.harga.setText("")
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -2,15 +2,20 @@ package com.surelabsid.lti.dacofa.ui.isidata
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import com.anggastudio.spinnerpickerdialog.SpinnerPickerDialog
 import com.google.android.material.snackbar.Snackbar
 import com.surelabsid.lti.dacofa.R
 import com.surelabsid.lti.dacofa.base.Baseapp
 import com.surelabsid.lti.dacofa.database.HeaderLokasi
 import com.surelabsid.lti.dacofa.databinding.ActivityIsiDataBinding
+import com.surelabsid.lti.dacofa.network.NetworkModule
+import com.surelabsid.lti.dacofa.response.ResponseFishingGear
 import com.surelabsid.lti.dacofa.ui.isidata.list.KabupatenActivity
 import com.surelabsid.lti.dacofa.ui.isidata.list.NegaraActivity
 import com.surelabsid.lti.dacofa.ui.isidata.list.ProvinsiActivity
+import retrofit2.Call
+import retrofit2.Response
 
 class IsiDataActivity : Baseapp() {
     private lateinit var binding: ActivityIsiDataBinding
@@ -23,6 +28,8 @@ class IsiDataActivity : Baseapp() {
         super.onCreate(savedInstanceState)
         binding = ActivityIsiDataBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        this.getFishingGear()
 
         binding.tanggalSelected.setOnClickListener {
             val dateDialog = SpinnerPickerDialog()
@@ -71,13 +78,14 @@ class IsiDataActivity : Baseapp() {
                 startActivityForResult(this, REQ_KAB)
             }
         }
+        binding.back.setOnClickListener {
+            finish()
+        }
 
         binding.ok.setOnClickListener {
             val idHeader = System.currentTimeMillis().toString()
 
             if (idNegara.toString().isEmpty() || idProv.toString().isEmpty() || idKab.toString()
-                    .isEmpty()
-                || binding.alatTangkap.text.toString()
                     .isEmpty() || binding.tanggalSelected.toString().isEmpty()
                 || binding.lamaOperasi.text.toString().isEmpty()
             ) {
@@ -87,13 +95,18 @@ class IsiDataActivity : Baseapp() {
 
             val headerLokasi = HeaderLokasi(
                 id = idHeader,
-                negara = idNegara.toString(),
-                provinsi = idProv.toString(),
-                kabupaten = idKab.toString(),
-                alatTangkap = binding.alatTangkap.text.toString(),
+                negara = binding.spinnerCountry.text.toString(),
+                provinsi = binding.provinsi.text.toString(),
+                kabupaten = binding.kabupaten.text.toString(),
+                alatTangkap = binding.alatTangkap.selectedItem.toString(),
                 lamaOperasi = binding.lamaOperasi.text.toString(),
                 userid = System.currentTimeMillis().toString(),
-                fishingArea = binding.spinnerArea.selectedItem.toString()
+                fishingArea = binding.spinnerArea.selectedItem.toString(),
+                lokasi = binding.lokasi.text.toString(),
+                tanggal = selectedDate.toString(),
+                jumlaAlatTangkap = binding.jumlahAlatTangkap.text.toString(),
+                lainnya = binding.lainnya.text.toString(),
+                ukuranJaring = binding.ukuranJaring.text.toString()
             )
 
             val ins = insertHeaderLokasi(headerLokasi = headerLokasi)
@@ -125,6 +138,34 @@ class IsiDataActivity : Baseapp() {
             idKab = data?.getStringExtra(KabupatenActivity.KAB_ID)
             binding.kabupaten.text = data?.getStringExtra(KabupatenActivity.KAB_NAME)
         }
+    }
+
+    fun getFishingGear() {
+        NetworkModule.getService().getFishingGear()
+            .enqueue(object : retrofit2.Callback<ResponseFishingGear> {
+                override fun onResponse(
+                    call: Call<ResponseFishingGear>,
+                    response: Response<ResponseFishingGear>
+                ) {
+                    val data = response.body()?.dataGear
+                    val listGear = mutableListOf<String?>()
+                    data?.map {
+                        listGear.add(it?.namaFishingGear)
+                    }
+
+                    val arrayAdapter = ArrayAdapter(
+                        this@IsiDataActivity,
+                        android.R.layout.simple_list_item_1,
+                        listGear
+                    )
+                    binding.alatTangkap.adapter = arrayAdapter
+                }
+
+                override fun onFailure(call: Call<ResponseFishingGear>, t: Throwable) {
+                    showMessage(t.message.toString())
+                }
+
+            })
     }
 
     companion object {

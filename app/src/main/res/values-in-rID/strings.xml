@@ -44,6 +44,17 @@
     <string name="choose_district">Pilih Kabupaten</string>
     <string name="location">Lokasi</string>
     <string name="please_fill_all">Silahkan isi semua kolom</string>
+    <string name="choose_fish_name">Pilih Nama Ikan</string>
+    <string name="need_to_validate">Perlu divalidasi</string>
+    <string name="valid">Valid</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Hapus</string>
+    <string name="validate">Validasi</string>
+    <string name="delete_data">hapus data ini?</string>
+    <string name="confirm">Konfirmasi</string>
+    <string name="catch_result">Hasil Tangkapan</string>
+    <string name="add">Tambah</string>
+    <string name="privacy_policy">Kebijakan Privasi</string>
 
 
 </resources>

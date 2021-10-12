@@ -4,6 +4,7 @@ import android.R
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
@@ -12,8 +13,8 @@ import com.surelabsid.lti.dacofa.database.DetailTangkapan
 import com.surelabsid.lti.dacofa.database.HeaderLokasi
 import com.surelabsid.lti.dacofa.db
 import com.surelabsid.lti.dacofa.utils.LocalizationUtil
+import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.doAsyncResult
-import org.jetbrains.anko.toast
 import java.util.*
 
 open class Baseapp : AppCompatActivity() {
@@ -39,13 +40,25 @@ open class Baseapp : AppCompatActivity() {
 
     fun insertDetailTangkapan(detailTangkapan: DetailTangkapan): Boolean {
         var status: Boolean
-        val i = doAsyncResult({
+        doAsyncResult({
             Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
             status = false
         }, { db.detailTangkapanDao().insertAllData(detailTangkapan) })
 
         status = true
         return status
+    }
+
+    fun deleteAllData() : Boolean{
+        var status: Boolean
+        doAsync({
+            status = false
+        }, { db.detailTangkapanDao().clearData() })
+
+        status = true
+
+        return status
+
     }
 
     fun showMessage(
@@ -61,6 +74,7 @@ open class Baseapp : AppCompatActivity() {
                 Intent(this, destination).apply {
                     putExtra("data", bundle)
                     startActivity(this)
+                    finish()
                 }
             }
         }
