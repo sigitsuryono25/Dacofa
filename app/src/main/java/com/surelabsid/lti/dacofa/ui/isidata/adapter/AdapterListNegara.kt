@@ -3,27 +3,28 @@ package com.surelabsid.lti.dacofa.ui.isidata.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.surelabsid.lti.dacofa.database.Countries
 import com.surelabsid.lti.dacofa.databinding.ItemAdapterListBinding
 import com.surelabsid.lti.dacofa.response.DataNegaraItem
 
 class AdapterListNegara(
-    private val onNegaraClick: (DataNegaraItem?) -> Unit
+    private val onNegaraClick: (Countries?) -> Unit
 ) : RecyclerView.Adapter<AdapterListNegara.ViewHolder>() {
 
-    private var mListNegara: MutableList<DataNegaraItem?> = mutableListOf()
+    private var mListNegara: MutableList<Countries?> = mutableListOf()
 
     inner class ViewHolder(private val itemAdapterListBinding: ItemAdapterListBinding) :
         RecyclerView.ViewHolder(itemAdapterListBinding.root) {
 
-        fun onBindItem(dataKabItem: DataNegaraItem?) {
-            itemAdapterListBinding.nama.text = dataKabItem?.name
+        fun onBindItem(countries: Countries?) {
+            itemAdapterListBinding.nama.text = countries?.name
             itemAdapterListBinding.root.setOnClickListener {
-                onNegaraClick(dataKabItem)
+                onNegaraClick(countries)
             }
         }
     }
 
-    fun addItem(newListKab: List<DataNegaraItem?>, clearIt: Boolean = false) {
+    fun addItem(newListKab: List<Countries?>, clearIt: Boolean = false) {
         if (clearIt)
             mListNegara.removeAll(mListNegara)
         this.mListNegara = newListKab.toMutableList()

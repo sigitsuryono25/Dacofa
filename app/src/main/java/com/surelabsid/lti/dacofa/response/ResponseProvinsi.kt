@@ -24,5 +24,8 @@ data class DataProvItem(
 	val nama: String? = null,
 
 	@field:SerializedName("id")
-	val id: String? = null
+	val id: String? = null,
+
+	@field:SerializedName("country_code")
+	val countryCode: String? = null
 ) : Parcelable

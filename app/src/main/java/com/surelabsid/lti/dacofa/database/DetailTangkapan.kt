@@ -1,9 +1,12 @@
 package com.surelabsid.lti.dacofa.database
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 @Entity(tableName = "tb_detail_tangkapan")
 data class DetailTangkapan(
 
@@ -11,17 +14,20 @@ data class DetailTangkapan(
     val id_detail: String,
 
     @ColumnInfo(name = "id_header")
-    val idHeader: String,
+    val id_header: String,
 
     @ColumnInfo(name = "id_ikan")
-    val idIkan: String,
+    val id_ikan: String,
 
     @ColumnInfo(name = "harga")
-    val harga: String,
+    val harga: Int = 0,
 
     @ColumnInfo(name = "total_tangkapan")
-    val totalTangkapan: String,
+    val total_tangkapan: String,
+
+    @ColumnInfo(name = "peruntukan")
+    val peruntukan: String,
 
     @ColumnInfo(name = "mata_uang")
-    val mataUang: String
-)
+    val mata_uang: String
+): Parcelable

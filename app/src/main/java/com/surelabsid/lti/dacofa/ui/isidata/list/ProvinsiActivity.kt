@@ -5,24 +5,21 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.surelabsid.lti.dacofa.R
+import com.surelabsid.lti.dacofa.database.WilayahProvinsi
 import com.surelabsid.lti.dacofa.databinding.ActivityProvinsiBinding
-import com.surelabsid.lti.dacofa.network.NetworkModule
-import com.surelabsid.lti.dacofa.response.DataProvItem
-import com.surelabsid.lti.dacofa.response.ResponseProvinsi
+import com.surelabsid.lti.dacofa.db
 import com.surelabsid.lti.dacofa.ui.isidata.IsiDataActivity
 import com.surelabsid.lti.dacofa.ui.isidata.adapter.AdapterListProvinsi
-import retrofit2.Call
-import retrofit2.Response
+import org.jetbrains.anko.doAsync
 
 class ProvinsiActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProvinsiBinding
-    private var listProv: List<DataProvItem?>? = null
+    private var listProv: List<WilayahProvinsi?>? = null
     private lateinit var adapter: AdapterListProvinsi
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -102,21 +99,25 @@ class ProvinsiActivity : AppCompatActivity() {
     }
 
     private fun getProvinsi(countryCode: String?) {
-        NetworkModule.getService().getListProvinsi(countryCode)
-            .enqueue(object : retrofit2.Callback<ResponseProvinsi> {
-                override fun onResponse(
-                    call: Call<ResponseProvinsi>,
-                    response: Response<ResponseProvinsi>
-                ) {
-                    listProv = response.body()?.dataProv
-                    adapter.addItem(listProv!!)
-                    adapter.notifyDataSetChanged()
-                }
-
-                override fun onFailure(call: Call<ResponseProvinsi>, t: Throwable) {
-                    Toast.makeText(this@ProvinsiActivity, t.message, Toast.LENGTH_SHORT).show()
-                }
-            })
+        doAsync {
+            listProv = db.daftarProvinsiDao().getProvinsiByProvinsi(countryCode)
+            adapter.addItem(listProv!!)
+        }
+//        NetworkModule.getService().getListProvinsi(countryCode)
+//            .enqueue(object : retrofit2.Callback<ResponseProvinsi> {
+//                override fun onResponse(
+//                    call: Call<ResponseProvinsi>,
+//                    response: Response<ResponseProvinsi>
+//                ) {
+//                    listProv = response.body()?.dataProv
+//                    adapter.addItem(listProv!!)
+//                    adapter.notifyDataSetChanged()
+//                }
+//
+//                override fun onFailure(call: Call<ResponseProvinsi>, t: Throwable) {
+//                    Toast.makeText(this@ProvinsiActivity, t.message, Toast.LENGTH_SHORT).show()
+//                }
+//            })
     }
 
     companion object {

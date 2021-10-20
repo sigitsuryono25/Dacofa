@@ -5,13 +5,15 @@
       <map>
         <entry key="..\:/PORTABLEAPPS/android-sdk/platforms/android-31/data/res/layout/simple_spinner_dropdown_item.xml" value="0.28425925925925927" />
         <entry key="..\:/StudioProject/Dacofa/app/src/main/res/drawable/bg_edittext.xml" value="0.371875" />
+        <entry key="..\:/StudioProject/Dacofa/app/src/main/res/drawable/ic_download.xml" value="0.371875" />
         <entry key="..\:/StudioProject/Dacofa/app/src/main/res/drawable/ic_indonesia_svgrepo_com.xml" value="0.371875" />
         <entry key="..\:/StudioProject/Dacofa/app/src/main/res/drawable/ic_reply.xml" value="0.371875" />
         <entry key="..\:/StudioProject/Dacofa/app/src/main/res/drawable/ic_sign_out_alt_solid.xml" value="0.371875" />
         <entry key="..\:/StudioProject/Dacofa/app/src/main/res/drawable/ic_united_states_svgrepo_com.xml" value="0.371875" />
         <entry key="..\:/StudioProject/Dacofa/app/src/main/res/font/.xml" value="0.3859375" />
         <entry key="..\:/StudioProject/Dacofa/app/src/main/res/layout/activity_daftar_ikan.xml" value="0.33" />
-        <entry key="..\:/StudioProject/Dacofa/app/src/main/res/layout/activity_detail_hasil_tangkapan.xml" value="0.33" />
+        <entry key="..\:/StudioProject/Dacofa/app/src/main/res/layout/activity_detail_hasil_tangkapan.xml" value="0.24322916666666666" />
+        <entry key="..\:/StudioProject/Dacofa/app/src/main/res/layout/activity_downloader.xml" value="0.35572916666666665" />
         <entry key="..\:/StudioProject/Dacofa/app/src/main/res/layout/activity_ikan.xml" value="0.28425925925925927" />
         <entry key="..\:/StudioProject/Dacofa/app/src/main/res/layout/activity_isi_data.xml" value="0.33" />
         <entry key="..\:/StudioProject/Dacofa/app/src/main/res/layout/activity_kabupaten.xml" value="0.28425925925925927" />
@@ -21,6 +23,7 @@
         <entry key="..\:/StudioProject/Dacofa/app/src/main/res/layout/activity_main.xml" value="0.35572916666666665" />
         <entry key="..\:/StudioProject/Dacofa/app/src/main/res/layout/activity_negara.xml" value="0.28425925925925927" />
         <entry key="..\:/StudioProject/Dacofa/app/src/main/res/layout/activity_provinsi.xml" value="0.35572916666666665" />
+        <entry key="..\:/StudioProject/Dacofa/app/src/main/res/layout/activity_splash.xml" value="0.33" />
         <entry key="..\:/StudioProject/Dacofa/app/src/main/res/layout/bg_layout.xml" value="0.34444444444444444" />
         <entry key="..\:/StudioProject/Dacofa/app/src/main/res/layout/item_adapter_catch_result.xml" value="0.28425925925925927" />
         <entry key="..\:/StudioProject/Dacofa/app/src/main/res/layout/item_adapter_data.xml" value="0.28425925925925927" />

@@ -37,7 +37,7 @@
     <string name="nama_ikan">Name of Fish</string>
     <string name="mata_uang">Currency</string>
     <string name="selesai">Finish</string>
-    <string name="isi_data_nselanjutnya">Entry\nNext Data</string>
+    <string name="isi_data_nselanjutnya">Save</string>
     <string name="data_nsebelumnya">Previous\nData</string>
     <string name="negara">Country</string>
 
@@ -53,7 +53,11 @@
         <item>Waduk</item>
         <item>Estuari</item>
     </string-array>
-    <string name="area_penangkapan">Fishing Area</string>
+    <string-array name="peruntukan">
+        <item>Pribadi</item>
+        <item>Dijual</item>
+    </string-array>
+    <string name="area_penangkapan">Fishing Ground</string>
     <string name="ok" translatable="false">Ok</string>
     <string name="search">Search</string>
     <string name="choose_country">--Choose Country--</string>
@@ -73,4 +77,8 @@
     <string name="catch_result">Catch Result</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="add">Add</string>
+    <string name="use_for">Use for</string>
+    <string name="_0" translatable="false">0</string>
+    <string name="reset" translatable="false">Reset</string>
+    <string name="no_data_available">No Data Available</string>
 </resources>

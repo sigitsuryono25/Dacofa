@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".ui.isidata.IsiDataActivity">
 
-    <include layout="@layout/bg_layout" />
+    <include
+        android:id="@+id/bg"
+        layout="@layout/bg_layout" />
 
     <LinearLayout
         android:id="@+id/containerData"
@@ -58,9 +60,9 @@
                 <TextView
                     android:id="@+id/namaIkan"
                     android:layout_width="match_parent"
-                    android:textSize="18sp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_edittext" />
+                    android:background="@drawable/bg_edittext"
+                    android:textSize="18sp" />
 
             </TableRow>
 
@@ -90,7 +92,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/bg_edittext"
                         android:importantForAutofill="no"
-                        android:inputType="number" />
+                        android:inputType="text" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -106,6 +108,39 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:labelFor="@id/peruntukan"
+                    android:text="@string/use_for"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <Spinner
+                        android:id="@+id/peruntukan"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_edittext"
+                        android:entries="@array/peruntukan" />
+
+                </LinearLayout>
+            </TableRow>
+
+
+            <TableRow
+                android:id="@+id/hargaRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -127,7 +162,8 @@
                         android:layout_weight="1"
                         android:background="@drawable/bg_edittext"
                         android:importantForAutofill="no"
-                        android:inputType="number" />
+                        android:inputType="number"
+                        android:text="@string/_0" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -175,8 +211,20 @@
         android:backgroundTint="#1970B7"
         android:text="@string/data_nsebelumnya"
         android:textAlignment="textEnd"
+        android:visibility="gone"
         app:icon="@drawable/ic_chevron_left"
         app:iconGravity="textStart" />
+
+    <Button
+        android:id="@+id/resetForm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/containerData"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="8dp"
+        android:backgroundTint="#CC0000"
+        android:text="@string/reset"
+        android:textAlignment="center" />
 
     <Button
         android:id="@+id/entryNextData"
@@ -184,49 +232,17 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/containerData"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:backgroundTint="#1970B7"
         android:text="@string/isi_data_nselanjutnya"
-        android:textAlignment="textStart"
-        app:icon="@drawable/ic_hevron_right"
-        app:iconGravity="textEnd" />
+        android:textAlignment="center" />
 
-    <ImageView
-        android:id="@+id/logout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/copyRight"
-        android:layout_marginStart="20dp"
-        android:contentDescription="@string/app_name"
-        app:srcCompat="@drawable/ic_sign_out_alt_solid" />
-
-    <ImageView
-        android:id="@+id/back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/copyRight"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="20dp"
-        android:contentDescription="@string/app_name"
-        app:srcCompat="@drawable/ic_reply" />
-
-
-    <Button
-        android:id="@+id/selesai"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/copyRight"
-        android:layout_centerHorizontal="true"
-        android:backgroundTint="#4AB14E"
-        android:text="@string/selesai" />
-
-    <TextView
-        android:id="@+id/copyRight"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCatchResult"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:padding="10dp"
-        android:text="@string/copyright_2021"
-        android:textAlignment="center"
-        android:textStyle="bold" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/entryNextData"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="60dp" />
+
 </RelativeLayout>

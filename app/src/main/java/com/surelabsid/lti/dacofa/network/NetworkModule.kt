@@ -7,7 +7,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 object NetworkModule {
-    const val BASE_URL = "http://192.168.18.114/dacofa/index.php/"
+    const val BASE_URL = "http://dacofa.server4111.com/index.php/"
+//    const val BASE_URL = "http://192.168.18.114/dacofa/index.php/"
 
     private fun getOkHttp(): OkHttpClient {
         val logging = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC)

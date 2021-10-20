@@ -3,27 +3,28 @@ package com.surelabsid.lti.dacofa.ui.isidata.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.surelabsid.lti.dacofa.database.Fish
 import com.surelabsid.lti.dacofa.databinding.ItemAdapterListBinding
 import com.surelabsid.lti.dacofa.response.DataIkanItem
 
 class AdapterListIkan(
-    private val onIkanClick: (DataIkanItem?) -> Unit
+    private val onIkanClick: (Fish?) -> Unit
 ) : RecyclerView.Adapter<AdapterListIkan.ViewHolder>() {
 
-    private var mListIkan: MutableList<DataIkanItem?> = mutableListOf()
+    private var mListIkan: MutableList<Fish?> = mutableListOf()
 
     inner class ViewHolder(private val itemAdapterListBinding: ItemAdapterListBinding) :
         RecyclerView.ViewHolder(itemAdapterListBinding.root) {
 
-        fun onBindItem(dataIkanItem: DataIkanItem?) {
-            itemAdapterListBinding.nama.text = dataIkanItem?.namaIkan
+        fun onBindItem(dataIkanItem: Fish?) {
+            itemAdapterListBinding.nama.text = dataIkanItem?.nama_ikan
             itemAdapterListBinding.root.setOnClickListener {
                 onIkanClick(dataIkanItem)
             }
         }
     }
 
-    fun addItem(newListKab: List<DataIkanItem?>, clearIt: Boolean = false) {
+    fun addItem(newListKab: List<Fish?>, clearIt: Boolean = false) {
         if (clearIt)
             mListIkan.removeAll(mListIkan)
         this.mListIkan = newListKab.toMutableList()

@@ -1,7 +1,11 @@
 package com.surelabsid.lti.dacofa.network
 
+import com.surelabsid.lti.dacofa.model.SyncModel
+import com.surelabsid.lti.dacofa.model.User
 import com.surelabsid.lti.dacofa.response.*
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface ApiService {
@@ -15,10 +19,30 @@ interface ApiService {
     @GET("Api_negara/getListNegara")
     fun getListNegara(): retrofit2.Call<ResponseNegara>
 
+    @POST("Api_user/login")
+    fun getCredential(@Body user: User): retrofit2.Call<ResponseUser>
+
+
+    @POST("Api_fishery/retrieveData")
+    fun syncData(@Body syncModel: SyncModel): retrofit2.Call<GeneralResponse>
+
+    @GET("Api_fishery/getData")
+    fun getDataFishery(@Query("userid") userid: String): retrofit2.Call<ResponseFishery>
+
+
+    @GET("Api_provinsi/getProvinsi")
+    suspend fun getAllProvinsi(): ResponseProvinsi
+
+    @GET("Api_kabupaten/getAllKabupaten")
+    suspend fun getAllKabupaten(): ResponseKabupaten
+
     @GET("Api_ikan/getListIkan")
-    fun getListIkan(): retrofit2.Call<ResponseIkan>
+    suspend fun getListIkan(): ResponseIkan
 
     @GET("Api_fishinggear/getFishingGear")
-    fun getFishingGear(): retrofit2.Call<ResponseFishingGear>
+    suspend fun getFishingGear(): ResponseFishingGear
+
+    @GET("Api_negara/getListNegara")
+    suspend fun getAllCountries(): ResponseNegara
 
 }

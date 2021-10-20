@@ -4,23 +4,20 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.surelabsid.lti.dacofa.R
+import com.surelabsid.lti.dacofa.database.WilayahKabupaten
 import com.surelabsid.lti.dacofa.databinding.ActivityKabupatenBinding
-import com.surelabsid.lti.dacofa.network.NetworkModule
-import com.surelabsid.lti.dacofa.response.DataKabItem
-import com.surelabsid.lti.dacofa.response.ResponseKabupaten
+import com.surelabsid.lti.dacofa.db
 import com.surelabsid.lti.dacofa.ui.isidata.IsiDataActivity
 import com.surelabsid.lti.dacofa.ui.isidata.adapter.AdapterListKabupaten
-import retrofit2.Call
-import retrofit2.Response
+import org.jetbrains.anko.doAsync
 
 class KabupatenActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityKabupatenBinding
+    private lateinit var binding: ActivityKabupatenBinding
     private lateinit var adapter: AdapterListKabupaten
-    private var mListKabupaten: List<DataKabItem?>? = null
+    private var mListKabupaten: List<WilayahKabupaten?>? = null
     private var idProvinsi: String? = null
     private var idKabupaten: String? = null
     private var kabupatenName: String? = null
@@ -68,23 +65,27 @@ class KabupatenActivity : AppCompatActivity() {
 
 
     private fun getKab(idProvinsi: String) {
-        NetworkModule.getService().getListKabupaten(idProvinsi)
-            .enqueue(object : retrofit2.Callback<ResponseKabupaten> {
-                override fun onResponse(
-                    call: Call<ResponseKabupaten>,
-                    response: Response<ResponseKabupaten>
-                ) {
-                    mListKabupaten = response.body()?.dataKab
-                    mListKabupaten?.let {
-                        adapter.addItem(it)
-                    }
-                }
-
-                override fun onFailure(call: Call<ResponseKabupaten>, t: Throwable) {
-                    Toast.makeText(this@KabupatenActivity, t.message, Toast.LENGTH_SHORT).show()
-                }
-
-            })
+        doAsync {
+            mListKabupaten = db.daftarKabupatenDao().getKabupatenByProvinsi(idProvinsi)
+            mListKabupaten?.let { adapter.addItem(it) }
+        }
+//        NetworkModule.getService().getListKabupaten(idProvinsi)
+//            .enqueue(object : retrofit2.Callback<ResponseKabupaten> {
+//                override fun onResponse(
+//                    call: Call<ResponseKabupaten>,
+//                    response: Response<ResponseKabupaten>
+//                ) {
+//                    mListKabupaten = response.body()?.dataKab
+//                    mListKabupaten?.let {
+//                        adapter.addItem(it)
+//                    }
+//                }
+//
+//                override fun onFailure(call: Call<ResponseKabupaten>, t: Throwable) {
+//                    Toast.makeText(this@KabupatenActivity, t.message, Toast.LENGTH_SHORT).show()
+//                }
+//
+//            })
     }
 
     companion object {

@@ -7,10 +7,10 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <include layout="@layout/bg_layout" />
+    <include layout="@layout/bg_layout" android:id="@+id/bg" />
 
     <LinearLayout
-        android:id="@+id/contaierBahasa"
+        android:id="@+id/containerBahasa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -139,7 +139,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:padding="10dp"
         android:text="@string/copyright_2021"
         android:textAlignment="center"
         android:textStyle="bold" />

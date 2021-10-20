@@ -34,10 +34,10 @@
     <string name="nama_ikan">Name of Fish</string>
     <string name="mata_uang">Currency</string>
     <string name="selesai">Finish</string>
-    <string name="isi_data_nselanjutnya">Entry\nNext Data</string>
+    <string name="isi_data_nselanjutnya">Save</string>
     <string name="data_nsebelumnya">Previous\nData</string>
     <string name="negara">Country</string>
-    <string name="area_penangkapan" >Fishing Area</string>
+    <string name="area_penangkapan" >Fishing Ground</string>
     <string name="search">Search</string>
     <string name="choose_country">-- Choose Country --</string>
     <string name="choose_countries">Choose Country</string>
@@ -56,4 +56,5 @@
     <string name="catch_result">Catch Result</string>
     <string name="add">Add</string>
     <string name="privacy_policy">Privacy Policy</string>
+    <string name="use_for">Use for</string>
 </resources>

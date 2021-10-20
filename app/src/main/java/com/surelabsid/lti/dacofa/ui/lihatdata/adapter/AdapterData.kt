@@ -1,6 +1,7 @@
 package com.surelabsid.lti.dacofa.ui.lihatdata.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.surelabsid.lti.dacofa.database.HeaderLokasi
@@ -10,7 +11,8 @@ import com.surelabsid.lti.dacofa.databinding.ItemAdapterDataBinding
 class AdapterData(
     private val onEditClick: (HeaderLokasi) -> Unit,
     private val onHapusClick: (HeaderLokasi) -> Unit,
-    private val onValidateClick: (HeaderLokasi) -> Unit
+    private val onValidateClick: (HeaderLokasi) -> Unit,
+    private val isValidate : Boolean = false
 ) :
     RecyclerView.Adapter<AdapterData.ViewHolder>() {
 
@@ -19,14 +21,22 @@ class AdapterData(
     inner class ViewHolder(private val itemAdapterDataBinding: ItemAdapterDataBinding) :
         RecyclerView.ViewHolder(itemAdapterDataBinding.root) {
 
+        init {
+            if(isValidate){
+                itemAdapterDataBinding.edit.visibility = View.GONE
+                itemAdapterDataBinding.delete.visibility = View.GONE
+                itemAdapterDataBinding.validate.visibility = View.GONE
+            }
+        }
+
         fun onBindItem(headerLokasi: HeaderLokasi) {
             itemAdapterDataBinding.tanggal.text = headerLokasi.tanggal
-            itemAdapterDataBinding.alatTangkap.text = headerLokasi.alatTangkap
-            itemAdapterDataBinding.country.text = headerLokasi.negara
-            itemAdapterDataBinding.provinsi.text = headerLokasi.provinsi
-            itemAdapterDataBinding.area.text = headerLokasi.fishingArea
-            itemAdapterDataBinding.lamaOperasi.text = headerLokasi.lamaOperasi
-            itemAdapterDataBinding.kabupaten.text = headerLokasi.kabupaten
+            itemAdapterDataBinding.alatTangkap.text = headerLokasi.alat_tangkap
+            itemAdapterDataBinding.country.text = headerLokasi.id_negara
+            itemAdapterDataBinding.provinsi.text = headerLokasi.id_provinsi
+            itemAdapterDataBinding.area.text = headerLokasi.area
+            itemAdapterDataBinding.lamaOperasi.text = headerLokasi.lama_operasi
+            itemAdapterDataBinding.kabupaten.text = headerLokasi.id_kabupaten
             itemAdapterDataBinding.lokasi.text = headerLokasi.lokasi
 
             itemAdapterDataBinding.delete.setOnClickListener {

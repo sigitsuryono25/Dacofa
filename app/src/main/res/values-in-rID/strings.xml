@@ -28,7 +28,7 @@
     <string name="harga">Harga</string>
     <string name="mata_uang">Mata Uang</string>
     <string name="selesai">Selesai</string>
-    <string name="isi_data_nselanjutnya">Isi Data\nSelanjutnya</string>
+    <string name="isi_data_nselanjutnya">Simpan</string>
     <string name="data_nsebelumnya">Data\nSebelumnya</string>
 
     <string-array name="country">
@@ -55,6 +55,7 @@
     <string name="catch_result">Hasil Tangkapan</string>
     <string name="add">Tambah</string>
     <string name="privacy_policy">Kebijakan Privasi</string>
+    <string name="use_for">Peruntukan</string>
 
 
 </resources>

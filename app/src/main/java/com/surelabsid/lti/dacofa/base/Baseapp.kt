@@ -1,18 +1,21 @@
 package com.surelabsid.lti.dacofa.base
 
-import android.R
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
+import com.pixplicity.easyprefs.library.Prefs
 import com.surelabsid.lti.dacofa.App
-import com.surelabsid.lti.dacofa.database.DetailTangkapan
-import com.surelabsid.lti.dacofa.database.HeaderLokasi
+import com.surelabsid.lti.dacofa.MainActivity
+import com.surelabsid.lti.dacofa.R
+import com.surelabsid.lti.dacofa.database.*
 import com.surelabsid.lti.dacofa.db
+import com.surelabsid.lti.dacofa.response.*
 import com.surelabsid.lti.dacofa.utils.LocalizationUtil
+import kotlinx.coroutines.*
+import org.jetbrains.anko.alert
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.doAsyncResult
 import java.util.*
@@ -49,7 +52,7 @@ open class Baseapp : AppCompatActivity() {
         return status
     }
 
-    fun deleteAllData() : Boolean{
+    fun deleteAllData(): Boolean {
         var status: Boolean
         doAsync({
             status = false
@@ -61,6 +64,34 @@ open class Baseapp : AppCompatActivity() {
 
     }
 
+    fun logout() {
+        alert {
+            message = "Keluar akan menghapus semua data yang belum anda validasi ke server.\nLanjutkan?"
+            title = getString(R.string.confirm)
+            positiveButton("Ok") {
+                nukeDatabase()
+                Prefs.clear()
+                finishAffinity()
+                startActivity(Intent(this@Baseapp, MainActivity::class.java))
+            }
+            negativeButton("Cancel") {
+                it.dismiss()
+            }
+        }.show()
+    }
+
+    private fun nukeDatabase() = CoroutineScope(Dispatchers.IO).launch {
+        val nuke = listOf(
+            async { db.daftarNegaraDao().nukeTable() },
+            async { db.detailTangkapanDao().clearData() },
+            async { db.daftarIkanDao().nukeTable() },
+            async { db.daftarFishingGearDao().nukeTable() },
+            async { db.daftarKabupatenDao().nukeTable() },
+            async { db.daftarProvinsiDao().nukeTable() },
+        )
+        nuke.awaitAll()
+    }
+
     fun showMessage(
         message: String,
         destination: Class<*>? = null,
@@ -68,7 +99,7 @@ open class Baseapp : AppCompatActivity() {
         bundle: Bundle? = null,
         duration: Int = Snackbar.LENGTH_SHORT
     ) {
-        val snackbar = Snackbar.make(findViewById(R.id.content), message, duration)
+        val snackbar = Snackbar.make(findViewById(android.R.id.content), message, duration)
         if (destination != null) {
             snackbar.setAction(actionText) {
                 Intent(this, destination).apply {
@@ -93,4 +124,6 @@ open class Baseapp : AppCompatActivity() {
     override fun attachBaseContext(newBase: Context) {
         super.attachBaseContext(LocalizationUtil.applyLang(newBase, Locale(App.LANGUAGE)))
     }
+
+
 }

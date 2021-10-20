@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.lihatdata.LihatDataActivity">
 
-    <include layout="@layout/bg_layout" />
+    <include
+        android:id="@+id/bg"
+        layout="@layout/bg_layout" />
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/logout"
+        android:layout_above="@+id/add"
         android:layout_alignParentTop="true"
         android:gravity="center_horizontal"
         android:orientation="vertical"
@@ -78,10 +79,27 @@
                         android:background="@android:color/holo_red_light" />
                 </RelativeLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvNeedValidate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/noDataNeedValidate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:padding="8dp"
+                        android:text="@string/no_data_available"
+                        android:textAlignment="center"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvNeedValidate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </RelativeLayout>
 
 
                 <RelativeLayout
@@ -117,50 +135,39 @@
                         android:background="@android:color/holo_red_light" />
                 </RelativeLayout>
 
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvValidData"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/noDataValid"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:padding="8dp"
+                        android:text="@string/no_data_available"
+                        android:textAlignment="center"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvValidData"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/logout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/copyRight"
-        android:layout_marginStart="20dp"
-        android:contentDescription="@string/app_name"
-        app:srcCompat="@drawable/ic_sign_out_alt_solid" />
-
-    <ImageView
-        android:id="@+id/back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/copyRight"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="20dp"
-        android:contentDescription="@string/app_name"
-        app:srcCompat="@drawable/ic_reply" />
 
     <Button
         android:id="@+id/add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/copyRight"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="60dp"
         android:backgroundTint="#4AB14E"
         android:text="@string/add" />
 
-    <TextView
-        android:id="@+id/copyRight"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:padding="10dp"
-        android:text="@string/copyright_2021"
-        android:textAlignment="center"
-        android:textStyle="bold" />
 </RelativeLayout>

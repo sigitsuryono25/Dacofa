@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
+    android:layout_margin="4dp"
     tools:context=".ui.lihatdata.adapter.AdapterData">
 
     <LinearLayout
@@ -11,13 +11,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="8dp">
-
-        <TextView
-            android:id="@+id/tanggal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
         <TableLayout
             android:layout_width="match_parent"
@@ -73,6 +66,27 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
+                    android:text="@string/use_for"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/peruntukan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/hargaRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
                     android:text="@string/harga"
                     android:textStyle="bold" />
 
@@ -113,7 +127,6 @@
 
             <Button
                 android:id="@+id/edit"
-                style="?android:buttonBarStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="5dp"

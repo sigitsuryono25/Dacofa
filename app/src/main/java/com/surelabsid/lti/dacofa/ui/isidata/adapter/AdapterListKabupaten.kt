@@ -3,19 +3,20 @@ package com.surelabsid.lti.dacofa.ui.isidata.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.surelabsid.lti.dacofa.database.WilayahKabupaten
 import com.surelabsid.lti.dacofa.databinding.ItemAdapterListBinding
 import com.surelabsid.lti.dacofa.response.DataKabItem
 
 class AdapterListKabupaten(
-    private val onKabClick: (DataKabItem?) -> Unit
+    private val onKabClick: (WilayahKabupaten?) -> Unit
 ) : RecyclerView.Adapter<AdapterListKabupaten.ViewHolder>() {
 
-    private var mListKab: MutableList<DataKabItem?> = mutableListOf()
+    private var mListKab: MutableList<WilayahKabupaten?> = mutableListOf()
 
     inner class ViewHolder(private val itemAdapterListBinding: ItemAdapterListBinding) :
         RecyclerView.ViewHolder(itemAdapterListBinding.root) {
 
-        fun onBindItem(dataKabItem: DataKabItem?) {
+        fun onBindItem(dataKabItem: WilayahKabupaten?) {
             itemAdapterListBinding.nama.text = dataKabItem?.nama
             itemAdapterListBinding.root.setOnClickListener {
                 onKabClick(dataKabItem)
@@ -23,7 +24,7 @@ class AdapterListKabupaten(
         }
     }
 
-    fun addItem(newListKab: List<DataKabItem?>, clearIt: Boolean = false) {
+    fun addItem(newListKab: List<WilayahKabupaten?>, clearIt: Boolean = false) {
         if (clearIt)
             mListKab.removeAll(mListKab)
         this.mListKab = newListKab.toMutableList()

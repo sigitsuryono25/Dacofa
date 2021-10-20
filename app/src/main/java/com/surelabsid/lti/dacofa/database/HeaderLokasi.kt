@@ -16,34 +16,34 @@ data class HeaderLokasi(
     val tanggal: String,
 
     @ColumnInfo(name = "alat_tangkap")
-    val alatTangkap: String,
+    val alat_tangkap: String,
 
     @ColumnInfo(name = "lainnya")
     val lainnya: String,
 
     @ColumnInfo(name = "ukuran_jaring")
-    val ukuranJaring: String,
+    val ukuran_jaring: String,
 
     @ColumnInfo(name = "jumla_alat")
-    val jumlaAlatTangkap: String,
+    val jumla_alat: String,
 
     @ColumnInfo(name = "id_negara")
-    val negara: String,
+    val id_negara: String,
 
     @ColumnInfo(name = "id_provinsi")
-    val provinsi: String,
+    val id_provinsi: String,
 
     @ColumnInfo(name = "id_kabupaten")
-    val kabupaten: String,
+    val id_kabupaten: String,
 
     @ColumnInfo(name = "area")
-    val fishingArea: String,
+    val area: String,
 
     @ColumnInfo(name = "lokasi")
     val lokasi: String,
 
     @ColumnInfo(name = "lama_operasi")
-    val lamaOperasi: String,
+    val lama_operasi: String,
 
     @ColumnInfo(name = "userid")
     val userid: String

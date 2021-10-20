@@ -5,17 +5,17 @@ import android.os.Bundle
 import android.widget.ArrayAdapter
 import com.anggastudio.spinnerpickerdialog.SpinnerPickerDialog
 import com.google.android.material.snackbar.Snackbar
+import com.pixplicity.easyprefs.library.Prefs
 import com.surelabsid.lti.dacofa.R
 import com.surelabsid.lti.dacofa.base.Baseapp
 import com.surelabsid.lti.dacofa.database.HeaderLokasi
 import com.surelabsid.lti.dacofa.databinding.ActivityIsiDataBinding
-import com.surelabsid.lti.dacofa.network.NetworkModule
-import com.surelabsid.lti.dacofa.response.ResponseFishingGear
+import com.surelabsid.lti.dacofa.db
 import com.surelabsid.lti.dacofa.ui.isidata.list.KabupatenActivity
 import com.surelabsid.lti.dacofa.ui.isidata.list.NegaraActivity
 import com.surelabsid.lti.dacofa.ui.isidata.list.ProvinsiActivity
-import retrofit2.Call
-import retrofit2.Response
+import com.surelabsid.lti.dacofa.utils.Constant
+import org.jetbrains.anko.doAsync
 
 class IsiDataActivity : Baseapp() {
     private lateinit var binding: ActivityIsiDataBinding
@@ -23,6 +23,8 @@ class IsiDataActivity : Baseapp() {
     private var idKab: String? = null
     private var idProv: String? = null
     private var selectedDate: String? = null
+    private var idHeader: String? = null
+    private var mode = "add"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,24 +68,32 @@ class IsiDataActivity : Baseapp() {
             }
         }
         binding.provinsi.setOnClickListener {
-            Intent(this, ProvinsiActivity::class.java).apply {
-                putExtra(NEGARA, idNegara)
-                startActivityForResult(this, REQ_PROV)
+            if (idNegara?.isNotEmpty() == true) {
+                Intent(this, ProvinsiActivity::class.java).apply {
+                    putExtra(NEGARA, idNegara)
+                    startActivityForResult(this, REQ_PROV)
+                }
+            } else {
+                showMessage("Pilih Negara terlebih dahulu")
             }
         }
 
         binding.kabupaten.setOnClickListener {
-            Intent(this, KabupatenActivity::class.java).apply {
-                putExtra(PROV, idProv)
-                startActivityForResult(this, REQ_KAB)
+            if (idProv?.isNotEmpty() == true) {
+                Intent(this, KabupatenActivity::class.java).apply {
+                    putExtra(PROV, idProv)
+                    startActivityForResult(this, REQ_KAB)
+                }
+            } else {
+                showMessage("Pilih Provinsi terlebih dahulu")
             }
         }
-        binding.back.setOnClickListener {
+        binding.bg.back.setOnClickListener {
             finish()
         }
 
-        binding.ok.setOnClickListener {
-            val idHeader = System.currentTimeMillis().toString()
+        binding.bg.ok.setOnClickListener {
+            idHeader = System.currentTimeMillis().toString()
 
             if (idNegara.toString().isEmpty() || idProv.toString().isEmpty() || idKab.toString()
                     .isEmpty() || binding.tanggalSelected.toString().isEmpty()
@@ -94,19 +104,19 @@ class IsiDataActivity : Baseapp() {
             }
 
             val headerLokasi = HeaderLokasi(
-                id = idHeader,
-                negara = binding.spinnerCountry.text.toString(),
-                provinsi = binding.provinsi.text.toString(),
-                kabupaten = binding.kabupaten.text.toString(),
-                alatTangkap = binding.alatTangkap.selectedItem.toString(),
-                lamaOperasi = binding.lamaOperasi.text.toString(),
-                userid = System.currentTimeMillis().toString(),
-                fishingArea = binding.spinnerArea.selectedItem.toString(),
+                id = idHeader.toString(),
+                id_negara = binding.spinnerCountry.text.toString(),
+                id_provinsi = binding.provinsi.text.toString(),
+                id_kabupaten = binding.kabupaten.text.toString(),
+                alat_tangkap = binding.alatTangkap.selectedItem.toString(),
+                lama_operasi = binding.lamaOperasi.text.toString(),
+                userid = Prefs.getString(Constant.USERID),
+                area = binding.spinnerArea.selectedItem.toString(),
                 lokasi = binding.lokasi.text.toString(),
                 tanggal = selectedDate.toString(),
-                jumlaAlatTangkap = binding.jumlahAlatTangkap.text.toString(),
+                jumla_alat = binding.jumlahAlatTangkap.text.toString(),
                 lainnya = binding.lainnya.text.toString(),
-                ukuranJaring = binding.ukuranJaring.text.toString()
+                ukuran_jaring = binding.ukuranJaring.text.toString()
             )
 
             val ins = insertHeaderLokasi(headerLokasi = headerLokasi)
@@ -115,7 +125,7 @@ class IsiDataActivity : Baseapp() {
                 bundle.putString(HEADER_ID, idHeader)
                 showMessage(
                     "Data berhasil disimpan",
-                    DetailHasilTangkapanActivity::class.java,
+                    IsiHasilTangkapanActivity::class.java,
                     "Detail Tangkapan",
                     bundle,
                     Snackbar.LENGTH_INDEFINITE
@@ -124,6 +134,43 @@ class IsiDataActivity : Baseapp() {
 
         }
 
+        binding.bg.logout.setOnClickListener {
+            logout()
+        }
+
+        val modeData = intent.getStringExtra(MODE)
+        val dataEdit = intent.getParcelableExtra<HeaderLokasi>(DATA_EDIT)
+        modeData.let {
+            if (it == "edit") {
+                mode = "edit"
+                setToView(dataEdit)
+            }
+        }
+
+    }
+
+    private fun setToView(dataEdit: HeaderLokasi?) {
+        binding.tanggalSelected.text = dataEdit?.tanggal
+//        val adapterAlatTangkap = binding.alatTangkap.adapter as ArrayAdapter<String>
+//        val selectionAlatTangkap = adapterAlatTangkap.getPosition(dataEdit?.alatTangkap)
+//        binding.alatTangkap.setSelection(selectionAlatTangkap)
+
+        binding.lainnya.setText(dataEdit?.lainnya)
+        binding.ukuranJaring.setText(dataEdit?.ukuran_jaring)
+        binding.jumlahAlatTangkap.setText(dataEdit?.jumla_alat)
+        binding.spinnerCountry.text = dataEdit?.id_negara
+        binding.provinsi.text = dataEdit?.id_provinsi
+        binding.kabupaten.text = dataEdit?.id_kabupaten
+
+        binding.lokasi.setText(dataEdit?.lokasi)
+        binding.lamaOperasi.setText(dataEdit?.lama_operasi)
+
+        val adapterArea = binding.spinnerArea.adapter as ArrayAdapter<String>
+        val selectionArea = adapterArea.getPosition(dataEdit?.area)
+        binding.spinnerArea.setSelection(selectionArea)
+
+
+        idHeader = dataEdit?.id
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -141,31 +188,21 @@ class IsiDataActivity : Baseapp() {
     }
 
     fun getFishingGear() {
-        NetworkModule.getService().getFishingGear()
-            .enqueue(object : retrofit2.Callback<ResponseFishingGear> {
-                override fun onResponse(
-                    call: Call<ResponseFishingGear>,
-                    response: Response<ResponseFishingGear>
-                ) {
-                    val data = response.body()?.dataGear
-                    val listGear = mutableListOf<String?>()
-                    data?.map {
-                        listGear.add(it?.namaFishingGear)
-                    }
-
-                    val arrayAdapter = ArrayAdapter(
-                        this@IsiDataActivity,
-                        android.R.layout.simple_list_item_1,
-                        listGear
-                    )
-                    binding.alatTangkap.adapter = arrayAdapter
-                }
-
-                override fun onFailure(call: Call<ResponseFishingGear>, t: Throwable) {
-                    showMessage(t.message.toString())
-                }
-
-            })
+        doAsync {
+            val gear = db.daftarFishingGearDao().getAllFishingGear()
+            val gearString = mutableListOf<String>()
+            gear.map {
+                gearString.add(it.nama_fishing_gear)
+            }
+            runOnUiThread {
+                val adap = ArrayAdapter(
+                    this@IsiDataActivity,
+                    android.R.layout.simple_list_item_1,
+                    gearString
+                )
+                binding.alatTangkap.adapter = adap
+            }
+        }
     }
 
     companion object {
@@ -176,6 +213,8 @@ class IsiDataActivity : Baseapp() {
         const val NEGARA = "negara"
         const val HEADER_ID = "headerId"
         const val PROV = "prov"
+        const val MODE = "mode"
+        const val DATA_EDIT = "dataEdit"
     }
 
 }
