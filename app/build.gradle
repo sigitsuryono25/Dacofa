@@ -12,8 +12,8 @@ android {
         applicationId "com.surelabsid.lti.dacofa"
         minSdk 23
         targetSdk 31
-        versionCode 3
-        versionName "1.0alpha30"
+        versionCode 4
+        versionName "1.0alpha50"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -71,4 +71,7 @@ dependencies {
     implementation 'com.github.anggastudio:SpinnerPickerDialog:2.0.0'
 
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0'
+
+
+    implementation 'me.abhinay.input:currency-edittext:1.1'
 }

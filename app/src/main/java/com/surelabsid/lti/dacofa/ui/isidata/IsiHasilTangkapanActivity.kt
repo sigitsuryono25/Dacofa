@@ -14,6 +14,7 @@ import com.surelabsid.lti.dacofa.databinding.ActivityDetailHasilTangkapanBinding
 import com.surelabsid.lti.dacofa.db
 import com.surelabsid.lti.dacofa.ui.isidata.list.IkanActivity
 import com.surelabsid.lti.dacofa.ui.lihatdata.AdapterCatchResult
+import me.abhinay.input.CurrencySymbols
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.doAsyncResult
@@ -39,6 +40,10 @@ class IsiHasilTangkapanActivity : Baseapp() {
         headerId = bundle?.getString(IsiDataActivity.HEADER_ID)
         val dataTangkapan = intent.getParcelableExtra<DetailTangkapan>(DATA_TANGKAPAN)
         val modeData = intent.getStringExtra(MODE)
+
+        binding.harga.setCurrency(CurrencySymbols.INDONESIA)
+        binding.harga.setDelimiter(false)
+        binding.harga.setDecimals(false)
 
         binding.previousData.setOnClickListener {
             this.getPreviousData()
@@ -175,7 +180,7 @@ class IsiHasilTangkapanActivity : Baseapp() {
             harga = if (binding.harga.text.toString() == "") {
                 0
             } else {
-                binding.harga.text.toString().toInt()
+                binding.harga.cleanIntValue
             },
             peruntukan = binding.peruntukan.selectedItem.toString()
         )
@@ -195,6 +200,7 @@ class IsiHasilTangkapanActivity : Baseapp() {
         binding.totalTangkapan.setText("")
         binding.harga.setText("")
         this.getData()
+        mode = "add"
     }
 
     private fun getData() {

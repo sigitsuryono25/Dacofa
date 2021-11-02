@@ -10,6 +10,9 @@ interface HeaderLokasiDao {
     @Query("SELECT * FROM tb_header_lokasi")
     fun getAllHeader(): List<HeaderLokasi>
 
+    @Query("SELECT * FROM tb_header_lokasi WHERE id IN (:id)")
+    fun getAllHeaderById(id: String): List<HeaderLokasi>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllData(vararg headerLokasi: HeaderLokasi)
 

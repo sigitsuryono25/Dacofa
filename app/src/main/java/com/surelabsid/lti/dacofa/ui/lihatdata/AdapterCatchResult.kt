@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.surelabsid.lti.dacofa.database.DetailTangkapan
 import com.surelabsid.lti.dacofa.databinding.ItemAdapterCatchResultBinding
+import me.abhinay.input.CurrencySymbols
 
 
 class AdapterCatchResult(
@@ -21,6 +22,10 @@ class AdapterCatchResult(
         fun onBindItem(detailTangkapan: DetailTangkapan) {
             itemAdapterCatchResultBinding.matauang.text = detailTangkapan.mata_uang
             itemAdapterCatchResultBinding.namaIkan.text = detailTangkapan.id_ikan
+            itemAdapterCatchResultBinding.harga.setCurrency(CurrencySymbols.INDONESIA)
+            itemAdapterCatchResultBinding.harga.setDecimals(false)
+            itemAdapterCatchResultBinding.harga.setDelimiter(false)
+
             itemAdapterCatchResultBinding.totalTangkapan.text =
                 "${detailTangkapan.total_tangkapan} KG"
 
@@ -29,7 +34,7 @@ class AdapterCatchResult(
                 itemAdapterCatchResultBinding.hargaRow.visibility = View.GONE
             } else {
                 itemAdapterCatchResultBinding.peruntukan.text = detailTangkapan.peruntukan
-                itemAdapterCatchResultBinding.harga.text = "${detailTangkapan.harga}/KG"
+                itemAdapterCatchResultBinding.harga.setText(detailTangkapan.harga.toString())
                 itemAdapterCatchResultBinding.hargaRow.visibility = View.VISIBLE
             }
 

@@ -38,15 +38,13 @@ class IsiDataActivity : Baseapp() {
             dateDialog.context = this
             dateDialog.setOnDialogListener(object : SpinnerPickerDialog.OnDialogListener {
                 override fun onSetDate(month: Int, day: Int, year: Int) {
-                    binding.tanggalSelected.setText(
-                        String.format(
-                            "%02d/%02d/%d",
-                            day,
-                            month + 1,
-                            year
-                        )
+                    binding.tanggalSelected.text = String.format(
+                        "%d-%02d-%02d",
+                        year,
+                        month + 1,
+                        day
                     )
-                    selectedDate = "$year-${month.plus(1)}-$day"
+                    selectedDate = binding.tanggalSelected.text.toString()
                 }
 
                 override fun onCancel() {
@@ -93,7 +91,8 @@ class IsiDataActivity : Baseapp() {
         }
 
         binding.bg.ok.setOnClickListener {
-            idHeader = System.currentTimeMillis().toString()
+            if (mode == "add")
+                idHeader = System.currentTimeMillis().toString()
 
             if (idNegara.toString().isEmpty() || idProv.toString().isEmpty() || idKab.toString()
                     .isEmpty() || binding.tanggalSelected.toString().isEmpty()
@@ -171,6 +170,7 @@ class IsiDataActivity : Baseapp() {
 
 
         idHeader = dataEdit?.id
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

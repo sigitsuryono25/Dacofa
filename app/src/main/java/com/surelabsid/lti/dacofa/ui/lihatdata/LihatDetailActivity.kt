@@ -59,16 +59,9 @@ class LihatDetailActivity : Baseapp() {
 
         headerLokasi = intent.getParcelableExtra("idLokasi")
 
-        binding.country.text = headerLokasi?.id_negara
-        binding.tanggal.text = headerLokasi?.tanggal
-        binding.provinsi.text = headerLokasi?.id_provinsi
-        binding.kabupaten.text = headerLokasi?.id_kabupaten
-        binding.lokasi.text = headerLokasi?.lokasi
-        binding.area.text = headerLokasi?.area
-        binding.alatTangkap.text = headerLokasi?.alat_tangkap
-        binding.ukuranJaring.text = headerLokasi?.ukuran_jaring
-        binding.jumlahAlatTangkap.text = headerLokasi?.jumla_alat
-        binding.lamaOperasi.text = "${headerLokasi?.lama_operasi} ${getString(R.string.jam)}"
+        setToView(headerLokasi)
+
+
         binding.delete.setOnClickListener {
             alert {
                 message = getString(R.string.delete_data)
@@ -123,9 +116,28 @@ class LihatDetailActivity : Baseapp() {
         }
     }
 
+    private fun setToView(h: HeaderLokasi?) {
+        doAsync {
+            headerLokasi = db.headerLokasiDao().getAllHeaderById(h?.id.toString()).get(0)
+            runOnUiThread {
+                binding.country.text = headerLokasi?.id_negara
+                binding.tanggal.text = headerLokasi?.tanggal
+                binding.provinsi.text = headerLokasi?.id_provinsi
+                binding.kabupaten.text = headerLokasi?.id_kabupaten
+                binding.lokasi.text = headerLokasi?.lokasi
+                binding.area.text = headerLokasi?.area
+                binding.alatTangkap.text = headerLokasi?.alat_tangkap
+                binding.ukuranJaring.text = headerLokasi?.ukuran_jaring
+                binding.jumlahAlatTangkap.text = headerLokasi?.jumla_alat
+                binding.lamaOperasi.text = "${headerLokasi?.lama_operasi} ${getString(R.string.jam)}"
+            }
+        }
+    }
+
     override fun onResume() {
         super.onResume()
         getCatchResult(headerLokasi?.id.toString())
+        setToView(headerLokasi)
     }
 
     private fun syncData(syncModel: SyncModel, id: String) {
@@ -166,7 +178,7 @@ class LihatDetailActivity : Baseapp() {
         doAsync {
             val del = db.headerLokasiDao().deleteHeader(idHeader)
             val delData = db.detailTangkapanDao().deleteByByIdHeader(idHeader)
-            if (del > 0 && delData > 0) {
+            if (del > 0 || delData > 0) {
                 runOnUiThread {
                     showMessage("data berhasil dihapus")
                     finish()

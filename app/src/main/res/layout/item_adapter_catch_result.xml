@@ -80,8 +80,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:visibility="gone"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:visibility="visible">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -90,10 +90,30 @@
                     android:text="@string/harga"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/harga"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content">
+
+                    <me.abhinay.input.CurrencyEditText
+                        android:id="@+id/harga"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:enabled="false"
+                        android:textSize="14sp"
+                        android:textColor="#777777"
+                        android:background="@null" />
+
+                    <TextView
+                        android:id="@+id/perkg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@id/harga"
+                        android:text="@string/per_kg" />
+
+                </RelativeLayout>
+
+
             </TableRow>
 
             <TableRow

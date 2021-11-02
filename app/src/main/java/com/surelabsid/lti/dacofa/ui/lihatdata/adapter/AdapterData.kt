@@ -30,7 +30,7 @@ class AdapterData(
         }
 
         fun onBindItem(headerLokasi: HeaderLokasi) {
-            itemAdapterDataBinding.tanggal.text = headerLokasi.tanggal
+            itemAdapterDataBinding.tanggal.text = headerLokasi.tanggal + "(${headerLokasi.id})"
             itemAdapterDataBinding.alatTangkap.text = headerLokasi.alat_tangkap
             itemAdapterDataBinding.country.text = headerLokasi.id_negara
             itemAdapterDataBinding.provinsi.text = headerLokasi.id_provinsi
