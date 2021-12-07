@@ -7,7 +7,7 @@ import androidx.room.Query
 
 @Dao
 interface HeaderLokasiDao {
-    @Query("SELECT * FROM tb_header_lokasi")
+    @Query("SELECT * FROM tb_header_lokasi ORDER BY tanggal DESC")
     fun getAllHeader(): List<HeaderLokasi>
 
     @Query("SELECT * FROM tb_header_lokasi WHERE id IN (:id)")

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.pixplicity.easyprefs.library.Prefs
 import com.surelabsid.lti.dacofa.database.*
@@ -34,8 +35,13 @@ class DownloaderActivity : AppCompatActivity() {
         }
 
 
-
-        checkData()
+        AlertDialog.Builder(this)
+            .setMessage("This processes will be download data from server. Expired Date of the data is 5 days." +
+                    "After that you have to re-download the data again.")
+            .setPositiveButton("Understand") { d, _ ->
+                d.dismiss()
+                checkData()
+            }.create().show()
 
     }
 

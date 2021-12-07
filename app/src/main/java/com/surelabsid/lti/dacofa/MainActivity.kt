@@ -37,6 +37,10 @@ class MainActivity : Baseapp() {
             reloadActivity("en")
         }
 
+        binding.lupaPassword.setOnClickListener {
+
+        }
+
         binding.masuk.setOnClickListener {
             if (binding.idPengguna.text.toString().isEmpty() || binding.kataSandi.text.toString()
                     .isEmpty()

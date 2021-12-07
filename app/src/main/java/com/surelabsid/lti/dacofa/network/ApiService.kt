@@ -45,4 +45,8 @@ interface ApiService {
     @GET("Api_negara/getListNegara")
     suspend fun getAllCountries(): ResponseNegara
 
+
+    @GET("Api_fishery/getHasilTangkapan")
+    suspend fun getHasilTangkapan(@Query("header") header: String?): ResponseDetailTangakapan
+
 }

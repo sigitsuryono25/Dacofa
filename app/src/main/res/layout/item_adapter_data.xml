@@ -199,6 +199,16 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/lihatHasilTangakapan"
+                style="?android:buttonBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
+                android:backgroundTint="#4AB14E"
+                android:text="@string/lihat_data"
+                android:textAllCaps="true" />
+
+            <Button
                 android:id="@+id/edit"
                 style="?android:buttonBarStyle"
                 android:layout_width="wrap_content"

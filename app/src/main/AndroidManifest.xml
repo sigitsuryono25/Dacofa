@@ -14,13 +14,14 @@
         android:theme="@style/Theme.Dacofa.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.lihatdata.LihatDetailValidActivity"
+            android:exported="false" />
+        <activity
             android:name=".DownloaderActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".SplashActivity"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

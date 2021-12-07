@@ -39,6 +39,8 @@ class LihatDataActivity : Baseapp() {
 
         binding.bg.ok.visibility = View.GONE
 
+
+
         adapterNeedValidate = AdapterData({
             //on edit
             startActivity(
@@ -73,6 +75,8 @@ class LihatDataActivity : Baseapp() {
 
                 syncData(sync, it.id)
             }
+        }, onViewDataClick = {
+
         })
         binding.rvNeedValidate.apply {
             adapter = adapterNeedValidate
@@ -129,7 +133,18 @@ class LihatDataActivity : Baseapp() {
                             d.add(h)
                         }
 
-                        val adp = AdapterData({}, {}, {}, true)
+                        val adp = AdapterData(
+                            onEditClick = {},
+                            onHapusClick = {},
+                            onValidateClick = {},
+                            onViewDataClick = {
+                                Intent(this@LihatDataActivity, LihatDetailValidActivity::class.java).apply {
+                                    putExtra(LihatDetailValidActivity.HEADERDATA, it)
+                                    startActivity(this)
+                                }
+                            },
+                            true
+                        )
                         adp.addData(d)
                         binding.rvValidData.apply {
                             adapter = adp
@@ -164,6 +179,7 @@ class LihatDataActivity : Baseapp() {
                                     db.detailTangkapanDao().deleteByByIdHeader(id)
                                 }
                                 this@LihatDataActivity.getHeaderData()
+                                this@LihatDataActivity.getData()
                             }
                             isCancelable = false
                         }.show()

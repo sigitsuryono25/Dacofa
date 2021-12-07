@@ -12,6 +12,7 @@ class AdapterData(
     private val onEditClick: (HeaderLokasi) -> Unit,
     private val onHapusClick: (HeaderLokasi) -> Unit,
     private val onValidateClick: (HeaderLokasi) -> Unit,
+    private val onViewDataClick: (HeaderLokasi) -> Unit,
     private val isValidate : Boolean = false
 ) :
     RecyclerView.Adapter<AdapterData.ViewHolder>() {
@@ -26,11 +27,18 @@ class AdapterData(
                 itemAdapterDataBinding.edit.visibility = View.GONE
                 itemAdapterDataBinding.delete.visibility = View.GONE
                 itemAdapterDataBinding.validate.visibility = View.GONE
+                itemAdapterDataBinding.lihatHasilTangakapan.visibility = View.VISIBLE
+            }else{
+
+                itemAdapterDataBinding.edit.visibility = View.VISIBLE
+                itemAdapterDataBinding.delete.visibility = View.VISIBLE
+                itemAdapterDataBinding.validate.visibility = View.VISIBLE
+                itemAdapterDataBinding.lihatHasilTangakapan.visibility = View.GONE
             }
         }
 
         fun onBindItem(headerLokasi: HeaderLokasi) {
-            itemAdapterDataBinding.tanggal.text = headerLokasi.tanggal + "(${headerLokasi.id})"
+            itemAdapterDataBinding.tanggal.text = headerLokasi.tanggal
             itemAdapterDataBinding.alatTangkap.text = headerLokasi.alat_tangkap
             itemAdapterDataBinding.country.text = headerLokasi.id_negara
             itemAdapterDataBinding.provinsi.text = headerLokasi.id_provinsi
@@ -38,6 +46,10 @@ class AdapterData(
             itemAdapterDataBinding.lamaOperasi.text = headerLokasi.lama_operasi
             itemAdapterDataBinding.kabupaten.text = headerLokasi.id_kabupaten
             itemAdapterDataBinding.lokasi.text = headerLokasi.lokasi
+
+            itemAdapterDataBinding.lihatHasilTangakapan.setOnClickListener {
+                onViewDataClick(headerLokasi)
+            }
 
             itemAdapterDataBinding.delete.setOnClickListener {
                 onHapusClick(headerLokasi)
