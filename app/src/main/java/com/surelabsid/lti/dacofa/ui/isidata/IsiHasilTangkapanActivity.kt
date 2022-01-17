@@ -165,8 +165,7 @@ class IsiHasilTangkapanActivity : Baseapp() {
     private fun insertData(headerId: String?) {
         if (binding.namaIkan.text.toString().isEmpty() || binding.totalTangkapan.text.toString()
                 .isEmpty()
-            || (binding.peruntukan.selectedItem.toString()
-                .equals("Dijual") && binding.harga.text.toString().isEmpty())
+            || (binding.peruntukan.selectedItem.toString() == "Dijual" && binding.harga.text.toString().isEmpty())
         ) {
             showMessage(getString(R.string.please_fill_all))
             return

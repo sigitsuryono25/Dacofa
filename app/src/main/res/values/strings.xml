@@ -14,11 +14,6 @@
     <string name="per_kg" translatable="false">/KG</string>
 
     <string name="data_collection_of_fishery_activity" translatable="false">Data Collection of Fishery Activity</string>
-    <string-array name="country">
-        <item>Indonesia</item>
-        <item>Malaysia</item>
-        <item>Thailand</item>
-    </string-array>
     <string name="tanggal">Date</string>
     <string name="inch">Inch</string>
     <string name="unit">Unit</string>
@@ -36,7 +31,6 @@
     <string name="total_tangkapan">Total Catch</string>
     <string name="nama_ikan">Name of Fish</string>
     <string name="mata_uang">Currency</string>
-    <string name="selesai">Finish</string>
     <string name="isi_data_nselanjutnya">Save</string>
     <string name="data_nsebelumnya">Previous\nData</string>
     <string name="negara">Country</string>
@@ -58,7 +52,7 @@
         <item>Dijual</item>
     </string-array>
     <string name="area_penangkapan">Fishing Ground</string>
-    <string name="ok" translatable="false">Ok</string>
+    <string name="ok" translatable="false">OK</string>
     <string name="search">Search</string>
     <string name="choose_country">--Choose Country--</string>
     <string name="choose_countries">Choose Country</string>
@@ -82,5 +76,28 @@
     <string name="reset" translatable="false">Reset</string>
     <string name="no_data_available">No Data Available</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="data_synced_successfully">data synced successfully</string>
+    <string name="unable_to_sync">Unable to sync when catch results is empty</string>
+    <string name="error">Error</string>
+    <string name="close">Close</string>
+    <string name="wait">please wait…</string>
+    <string name="cancel">Cancel</string>
+    <string name="please_wait_nwhile_we_downloading_some_data_nmake_sure_you_ve_an_active_connection">Please wait while we are downloading some data.\n Make sure you\'ve an active connection</string>
+    <string name="re_download_data">Re-download Data</string>
+    <string name="choose_fishing_gear">-- Choose Fishing Gear --</string>
+    <string name="update_offline_data">Update Offline Data</string>
+    <string name="data_up_to_date">Data Up to date</string>
+    <string name="data_too_old">Your data is too old. Please re-download the data</string>
+    <string name="continue_exit">Exiting will delete all data that you have not validated to the server. Are you sure?</string>
+    <string name="unknown_error">Unknown Error Occurred</string>
+    <string name="not_found">Data not found</string>
+    <string name="server_error">Server Error</string>
+    <string name="io_error">Operation Error</string>
+    <string name="information">Information</string>
+    <string name="send_link_reset">Send a password reset link</string>
+    <string name="please_wait">Please wait…</string>
+    <string name="must_a_valid_email">Email must not be empty and email must be valid</string>
+    <string name="reset_your_pass">Reset your password</string>
+    <string name="your_email">Your Email</string>
+    <string name="reset_pass">Send Password Reset Link</string>
 </resources>

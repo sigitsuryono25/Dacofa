@@ -3,10 +3,7 @@ package com.surelabsid.lti.dacofa.network
 import com.surelabsid.lti.dacofa.model.SyncModel
 import com.surelabsid.lti.dacofa.model.User
 import com.surelabsid.lti.dacofa.response.*
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface ApiService {
 
@@ -48,5 +45,9 @@ interface ApiService {
 
     @GET("Api_fishery/getHasilTangkapan")
     suspend fun getHasilTangkapan(@Query("header") header: String?): ResponseDetailTangakapan
+
+    @FormUrlEncoded
+    @POST("Api_user/reset_password")
+    suspend fun resetPassword(@Field("email") email: String?) : GeneralResponse
 
 }

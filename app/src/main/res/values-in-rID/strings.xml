@@ -27,15 +27,9 @@
     <string name="total_tangkapan">Total Tangkapan</string>
     <string name="harga">Harga</string>
     <string name="mata_uang">Mata Uang</string>
-    <string name="selesai">Selesai</string>
     <string name="isi_data_nselanjutnya">Simpan</string>
     <string name="data_nsebelumnya">Data\nSebelumnya</string>
 
-    <string-array name="country">
-        <item>Indonesia</item>
-        <item>Malaysia</item>
-        <item>Thailand</item>
-    </string-array>
     <string name="area_penangkapan">Area Penangkapan</string>
     <string name="search">Cari</string>
     <string name="choose_country">-- Pilih Negara --</string>
@@ -56,6 +50,31 @@
     <string name="add">Tambah</string>
     <string name="privacy_policy">Kebijakan Privasi</string>
     <string name="use_for">Peruntukan</string>
+    <string name="cancel">Batal</string>
+    <string name="wait">mohon tunggu…</string>
+    <string name="no_data_available">Tidak ada data</string>
+    <string name="data_synced_successfully">Data berhasil di Sinkronkan</string>
+    <string name="unable_to_sync">Tidak dapat mensinkronkan bila hasil tangkapan kosong</string>
+    <string name="error">Kesalahan</string>
+    <string name="close">Tutup</string>
+    <string name="please_wait_nwhile_we_downloading_some_data_nmake_sure_you_ve_an_active_connection">Mohon Tunggu.. Kami sedang mengunduh data. Pastikan anda memiliki koneksi internet</string>
+    <string name="re_download_data">Mengupdate data…</string>
+    <string name="choose_fishing_gear">-- Pilih Alat Tangkap --</string>
+    <string name="update_offline_data">Perbaharui Data Offline</string>
+    <string name="data_up_to_date">Data telah yang terbaru</string>
+    <string name="data_too_old">Data anda terlalu lama. Silahkan unduh ulang data</string>
+    <string name="continue_exit">Keluar dari aplikasi akan mengapus data yang belum divalidasi ke server. Lanjutkan?</string>
+    <string name="unknown_error">Kesalahan tidak diketahui</string>
+    <string name="not_found">Data tidak ditemukan</string>
+    <string name="server_error">Kesalahan Server</string>
+    <string name="io_error">Kesalahan Operasi</string>
+    <string name="information">Informasi</string>
+    <string name="send_link_reset">Mengirimkan link reset password</string>
+    <string name="please_wait">Silahkan tunggu…</string>
+    <string name="must_a_valid_email">Email tidak boleh kosong dan email harus valid</string>
+    <string name="reset_your_pass">Reset Password Anda</string>
+    <string name="your_email">Email Anda</string>
+    <string name="reset_pass">Kirim Link Reset Password</string>
 
 
 </resources>

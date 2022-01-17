@@ -1,10 +1,13 @@
 package com.surelabsid.lti.dacofa.ui.isidata.list
-
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
+import androidx.core.view.MenuItemCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.surelabsid.lti.dacofa.R
 import com.surelabsid.lti.dacofa.database.WilayahKabupaten
@@ -44,6 +47,45 @@ class KabupatenActivity : AppCompatActivity() {
         idProvinsi?.let {
             getKab(it)
         }
+    }
+
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.search_menu, menu)
+        val searchItem = menu?.findItem(R.id.app_bar_search)
+        var searchView: SearchView? = null
+        searchItem?.let {
+            searchView = MenuItemCompat.getActionView(it) as SearchView
+        }
+
+
+        searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                newText?.let {
+                    if (it.length > 3) {
+                        filterKab(it)
+                    } else {
+                        adapter.addItem(mListKabupaten!!, true)
+                    }
+                }
+                return false
+            }
+        })
+        return true
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun filterKab(query: String?) {
+        val filteredData = mListKabupaten?.filter {
+            it?.nama?.contains(query.toString(), true) == true
+        }
+        adapter.addItem(filteredData!!)
+        adapter.notifyDataSetChanged()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

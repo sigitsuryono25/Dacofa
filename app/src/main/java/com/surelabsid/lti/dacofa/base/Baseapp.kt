@@ -66,7 +66,7 @@ open class Baseapp : AppCompatActivity() {
 
     fun logout() {
         alert {
-            message = "Keluar akan menghapus semua data yang belum anda validasi ke server.\nLanjutkan?"
+            message = getString(R.string.continue_exit)
             title = getString(R.string.confirm)
             positiveButton("Ok") {
                 nukeDatabase()

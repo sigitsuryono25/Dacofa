@@ -18,7 +18,9 @@
             android:exported="false" />
         <activity
             android:name=".DownloaderActivity"
-            android:exported="true"></activity>
+            android:exported="true">
+
+        </activity>
         <activity
             android:name=".SplashActivity"
             android:exported="true">
@@ -65,6 +67,9 @@
         <activity
             android:name=".MainActivity"
             android:exported="true" />
+        <activity android:name=".ui.isidata.list.AlatTangkapActivity"
+            android:theme="@style/Theme.Dacofa"
+            android:exported="false"/>
     </application>
 
 </manifest>

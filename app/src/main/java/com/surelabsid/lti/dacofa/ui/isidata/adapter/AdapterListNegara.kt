@@ -1,5 +1,6 @@
 package com.surelabsid.lti.dacofa.ui.isidata.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -24,9 +25,10 @@ class AdapterListNegara(
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun addItem(newListKab: List<Countries?>, clearIt: Boolean = false) {
         if (clearIt)
-            mListNegara.removeAll(mListNegara)
+            mListNegara.removeAll(mListNegara.toSet())
         this.mListNegara = newListKab.toMutableList()
         notifyDataSetChanged()
     }
@@ -44,7 +46,7 @@ class AdapterListNegara(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.onBindItem(mListNegara.get(position))
+        holder.onBindItem(mListNegara[position])
     }
 
     override fun getItemCount(): Int {

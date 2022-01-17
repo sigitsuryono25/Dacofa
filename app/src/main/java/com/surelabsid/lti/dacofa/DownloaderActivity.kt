@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.pixplicity.easyprefs.library.Prefs
 import com.surelabsid.lti.dacofa.database.*
@@ -14,34 +13,41 @@ import com.surelabsid.lti.dacofa.ui.landing.LandingActivity
 import com.surelabsid.lti.dacofa.utils.Constant
 import com.surelabsid.lti.dacofa.utils.HourToMillis
 import kotlinx.coroutines.*
+import org.jetbrains.anko.alert
+import org.jetbrains.anko.okButton
 import retrofit2.HttpException
 import java.io.IOException
 
 class DownloaderActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDownloaderBinding
+    private var from: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDownloaderBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
+        from = intent.getStringExtra("from")
 
         binding.redownload.setOnClickListener {
             binding.redownload.visibility = View.GONE
             binding.bar.visibility = View.VISIBLE
-            binding.status.text = "Please wait..\nWhile we downloading some data"
+            binding.status.text = getString(R.string.please_wait_nwhile_we_downloading_some_data_nmake_sure_you_ve_an_active_connection)
             getData()
         }
 
+        binding.root.visibility = View.GONE
+        checkData()
 
-        AlertDialog.Builder(this)
-            .setMessage("This processes will be download data from server. Expired Date of the data is 5 days." +
-                    "After that you have to re-download the data again.")
-            .setPositiveButton("Understand") { d, _ ->
-                d.dismiss()
-                checkData()
-            }.create().show()
+
+//        AlertDialog.Builder(this)
+//            .setMessage("This processes will be download data from server. Expired Date of the data is 5 days." +
+//                    "After that you have to re-download the data again.")
+//            .setPositiveButton("Understand") { d, _ ->
+//                d.dismiss()
+//            }.create().show()
+
 
     }
 
@@ -140,19 +146,34 @@ class DownloaderActivity : AppCompatActivity() {
         //get last run
         val lastRun = Prefs.getString(Constant.LAST_RUN)
         val days = HourToMillis.dateDiff(lastRun)
-        Log.d("checkData", "checkData: $days")
         if (days > 5) {
+            binding.root.visibility = View.VISIBLE
             runOnUiThread {
-                binding.status.text = "Your data is too old. Please re-download the data"
+                binding.status.text = getString(R.string.data_too_old)
                 binding.redownload.visibility = View.VISIBLE
                 binding.bar.visibility = View.GONE
             }
         } else if (provinsi.isNotEmpty() && kab.isNotEmpty() && countries.isNotEmpty() && fishingGear.isNotEmpty() && fish.isNotEmpty()) {
-            Intent(this@DownloaderActivity, LandingActivity::class.java).apply {
-                startActivity(this)
-                finish()
+            if (from?.equals("landing") == true) {
+                MainScope().launch {
+                    alert {
+                        message = getString(R.string.data_up_to_date)
+                        title = getString(R.string.confirm)
+                        okButton {
+                            finish()
+                        }
+                    }.show()
+                }
+            } else {
+                Intent(this@DownloaderActivity, LandingActivity::class.java).apply {
+                    startActivity(this)
+                    finish()
+                }
             }
         } else {
+            MainScope().launch {
+                binding.root.visibility = View.VISIBLE
+            }
             getData()
         }
     }

@@ -92,7 +92,8 @@
                         android:layout_weight="1"
                         android:background="@drawable/bg_edittext"
                         android:importantForAutofill="no"
-                        android:inputType="text" />
+                        android:inputType="text"
+                        tools:ignore="LabelFor" />
 
                     <TextView
                         android:layout_width="wrap_content"

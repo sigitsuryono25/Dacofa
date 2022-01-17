@@ -5,13 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#C62828"
-    tools:context=".DownloaderActivity">
+    tools:context=".DownloaderActivity"
+    tools:ignore="Overdraw">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <ImageView
             android:layout_width="150dp"
@@ -27,17 +29,17 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:gravity="center_horizontal"
-            android:text="Please wait..\nWhile we downloading some data\nMake sure you've an active connection"
+            android:text="@string/please_wait_nwhile_we_downloading_some_data_nmake_sure_you_ve_an_active_connection"
             android:textColor="@color/white"
             android:textStyle="bold" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/redownload"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Re-download Data"
-            android:visibility="gone"
+            android:id="@+id/redownload"
             android:layout_gravity="center_horizontal"
+            android:text="@string/re_download_data"
+            android:visibility="gone"
             app:icon="@drawable/ic_refresh"
             app:iconGravity="start" />
     </LinearLayout>

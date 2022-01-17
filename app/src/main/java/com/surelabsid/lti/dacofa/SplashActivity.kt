@@ -21,7 +21,7 @@ class SplashActivity : AppCompatActivity() {
                 startActivity(
                     Intent(
                         this,
-                        LandingActivity::class.java
+                        DownloaderActivity::class.java
                     ).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                         .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 )

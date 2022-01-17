@@ -1,5 +1,6 @@
 package com.surelabsid.lti.dacofa.ui.isidata.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -23,6 +24,7 @@ class AdapterListProvinsi(
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun addItem(listProv: List<WilayahProvinsi?>, clearit: Boolean = false) {
 //        if (clearit)
 //            mListProv.removeAll(mListProv)

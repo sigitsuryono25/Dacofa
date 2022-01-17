@@ -3,6 +3,7 @@ package com.surelabsid.lti.dacofa.ui.isidata
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import com.anggastudio.spinnerpickerdialog.SpinnerPickerDialog
 import com.google.android.material.snackbar.Snackbar
 import com.pixplicity.easyprefs.library.Prefs
@@ -11,6 +12,7 @@ import com.surelabsid.lti.dacofa.base.Baseapp
 import com.surelabsid.lti.dacofa.database.HeaderLokasi
 import com.surelabsid.lti.dacofa.databinding.ActivityIsiDataBinding
 import com.surelabsid.lti.dacofa.db
+import com.surelabsid.lti.dacofa.ui.isidata.list.AlatTangkapActivity
 import com.surelabsid.lti.dacofa.ui.isidata.list.KabupatenActivity
 import com.surelabsid.lti.dacofa.ui.isidata.list.NegaraActivity
 import com.surelabsid.lti.dacofa.ui.isidata.list.ProvinsiActivity
@@ -24,14 +26,13 @@ class IsiDataActivity : Baseapp() {
     private var idProv: String? = null
     private var selectedDate: String? = null
     private var idHeader: String? = null
+    private var alatTangkap : String? = null
     private var mode = "add"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityIsiDataBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        this.getFishingGear()
 
         binding.tanggalSelected.setOnClickListener {
             val dateDialog = SpinnerPickerDialog()
@@ -57,6 +58,12 @@ class IsiDataActivity : Baseapp() {
 
             })
             dateDialog.show(supportFragmentManager, "")
+        }
+
+        binding.alatTangkap.setOnClickListener {
+            Intent(this, AlatTangkapActivity::class.java).apply {
+                startActivityForResult(this, REQ_ALAT_TANGKAP)
+            }
         }
 
 
@@ -107,7 +114,7 @@ class IsiDataActivity : Baseapp() {
                 id_negara = binding.spinnerCountry.text.toString(),
                 id_provinsi = binding.provinsi.text.toString(),
                 id_kabupaten = binding.kabupaten.text.toString(),
-                alat_tangkap = binding.alatTangkap.selectedItem.toString(),
+                alat_tangkap = alatTangkap.toString(),
                 lama_operasi = binding.lamaOperasi.text.toString(),
                 userid = Prefs.getString(Constant.USERID),
                 area = binding.spinnerArea.selectedItem.toString(),
@@ -153,7 +160,7 @@ class IsiDataActivity : Baseapp() {
 //        val adapterAlatTangkap = binding.alatTangkap.adapter as ArrayAdapter<String>
 //        val selectionAlatTangkap = adapterAlatTangkap.getPosition(dataEdit?.alatTangkap)
 //        binding.alatTangkap.setSelection(selectionAlatTangkap)
-
+        binding.alatTangkap.text = dataEdit?.alat_tangkap
         binding.lainnya.setText(dataEdit?.lainnya)
         binding.ukuranJaring.setText(dataEdit?.ukuran_jaring)
         binding.jumlahAlatTangkap.setText(dataEdit?.jumla_alat)
@@ -184,24 +191,9 @@ class IsiDataActivity : Baseapp() {
         } else if (requestCode == REQ_KAB) {
             idKab = data?.getStringExtra(KabupatenActivity.KAB_ID)
             binding.kabupaten.text = data?.getStringExtra(KabupatenActivity.KAB_NAME)
-        }
-    }
-
-    fun getFishingGear() {
-        doAsync {
-            val gear = db.daftarFishingGearDao().getAllFishingGear()
-            val gearString = mutableListOf<String>()
-            gear.map {
-                gearString.add(it.nama_fishing_gear)
-            }
-            runOnUiThread {
-                val adap = ArrayAdapter(
-                    this@IsiDataActivity,
-                    android.R.layout.simple_list_item_1,
-                    gearString
-                )
-                binding.alatTangkap.adapter = adap
-            }
+        }else if(requestCode == REQ_ALAT_TANGKAP){
+            alatTangkap = data?.getStringExtra(AlatTangkapActivity.FISHINGGEAR_NAME)
+            binding.alatTangkap.text = data?.getStringExtra(AlatTangkapActivity.FISHINGGEAR_NAME)
         }
     }
 
@@ -209,6 +201,7 @@ class IsiDataActivity : Baseapp() {
         const val REQ_NEGARA = 1020
         const val REQ_PROV = 1021
         const val REQ_KAB = 1022
+        const val REQ_ALAT_TANGKAP = 1035
 
         const val NEGARA = "negara"
         const val HEADER_ID = "headerId"

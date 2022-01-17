@@ -5,20 +5,21 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.surelabsid.lti.dacofa.database.Fish
+import com.surelabsid.lti.dacofa.database.Fishinggear
 import com.surelabsid.lti.dacofa.databinding.ItemAdapterListBinding
 import com.surelabsid.lti.dacofa.response.DataIkanItem
 
-class AdapterListIkan(
-    private val onIkanClick: (Fish?) -> Unit
-) : RecyclerView.Adapter<AdapterListIkan.ViewHolder>() {
+class AdapterAlatTangkap(
+    private val onIkanClick: (Fishinggear?) -> Unit
+) : RecyclerView.Adapter<AdapterAlatTangkap.ViewHolder>() {
 
-    private var mListIkan: MutableList<Fish?> = mutableListOf()
+    private var mListIkan: MutableList<Fishinggear?> = mutableListOf()
 
     inner class ViewHolder(private val itemAdapterListBinding: ItemAdapterListBinding) :
         RecyclerView.ViewHolder(itemAdapterListBinding.root) {
 
-        fun onBindItem(dataIkanItem: Fish?) {
-            itemAdapterListBinding.nama.text = dataIkanItem?.nama_ikan
+        fun onBindItem(dataIkanItem: Fishinggear?) {
+            itemAdapterListBinding.nama.text = dataIkanItem?.nama_fishing_gear
             itemAdapterListBinding.root.setOnClickListener {
                 onIkanClick(dataIkanItem)
             }
@@ -26,7 +27,7 @@ class AdapterListIkan(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun addItem(newListKab: List<Fish?>, clearIt: Boolean = false) {
+    fun addItem(newListKab: List<Fishinggear?>, clearIt: Boolean = false) {
         if (clearIt)
             mListIkan.removeAll(mListIkan.toSet())
         this.mListIkan = newListKab.toMutableList()

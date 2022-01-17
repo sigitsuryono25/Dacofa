@@ -1,9 +1,9 @@
 package com.surelabsid.lti.dacofa.ui.lihatdata
 
+import android.app.AlertDialog
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pixplicity.easyprefs.library.Prefs
@@ -55,25 +55,37 @@ class LihatDataActivity : Baseapp() {
                 positiveButton("Ok") {
                     deleteData(deleteData.id)
                 }
-                negativeButton("Cancel") {
+                negativeButton(getString(R.string.cancel)) {
                     it.dismiss()
                 }
                 isCancelable = false
             }.show()
         }, {
             //on validate
-            pd = ProgressDialog.show(this, "", "please wait...", false, false)
+            pd = ProgressDialog.show(this, "", getString(R.string.wait), false, false)
             doAsync {
                 val detail = db.detailTangkapanDao().getAllTangakapanByIdHeader(it.id)
                 val listHeader = mutableListOf<HeaderLokasi>()
                 listHeader.add(it)
+                if (detail.isEmpty()) {
+                    runOnUiThread {
+                        AlertDialog.Builder(this@LihatDataActivity)
+                            .setMessage(getString(R.string.unable_to_sync))
+                            .setTitle(getString(R.string.error))
+                            .setPositiveButton(getString(R.string.close)) { d, _ ->
+                                d.dismiss()
+                                pd.dismiss()
+                            }
+                            .create().show()
+                    }
+                } else {
+                    val sync = SyncModel()
+                    sync.detail = detail
+                    sync.lokasi = listHeader
+                    sync.userid = Prefs.getString(Constant.USERID)
 
-                val sync = SyncModel()
-                sync.detail = detail
-                sync.lokasi = listHeader
-                sync.userid = Prefs.getString(Constant.USERID)
-
-                syncData(sync, it.id)
+                    syncData(sync, it.id)
+                }
             }
         }, onViewDataClick = {
 
@@ -138,7 +150,10 @@ class LihatDataActivity : Baseapp() {
                             onHapusClick = {},
                             onValidateClick = {},
                             onViewDataClick = {
-                                Intent(this@LihatDataActivity, LihatDetailValidActivity::class.java).apply {
+                                Intent(
+                                    this@LihatDataActivity,
+                                    LihatDetailValidActivity::class.java
+                                ).apply {
                                     putExtra(LihatDetailValidActivity.HEADERDATA, it)
                                     startActivity(this)
                                 }
@@ -172,14 +187,14 @@ class LihatDataActivity : Baseapp() {
                     if (data?.code == 200) {
                         alert {
                             title = getString(R.string.confirm)
-                            message = "data berhasil di sinkronkan"
+                            message = getString(R.string.data_synced_successfully)
                             okButton {
                                 doAsync {
                                     db.headerLokasiDao().deleteHeader(id)
                                     db.detailTangkapanDao().deleteByByIdHeader(id)
+                                    this@LihatDataActivity.getHeaderData()
+                                    this@LihatDataActivity.getData()
                                 }
-                                this@LihatDataActivity.getHeaderData()
-                                this@LihatDataActivity.getData()
                             }
                             isCancelable = false
                         }.show()
@@ -204,13 +219,15 @@ class LihatDataActivity : Baseapp() {
     private fun getHeaderData() {
         doAsync {
             val data = db.headerLokasiDao().getAllHeader()
-            Log.d("getLokasiData", "getLokasiData: $data")
             runOnUiThread {
                 if (data.isEmpty()) {
                     binding.noDataNeedValidate.visibility = View.VISIBLE
+                    binding.rvNeedValidate.adapter = null
                 } else {
                     binding.noDataNeedValidate.visibility = View.GONE
+                    binding.rvNeedValidate.visibility = View.VISIBLE
                     adapterNeedValidate.addData(data, true)
+                    binding.rvNeedValidate.adapter = adapterNeedValidate
                 }
             }
         }

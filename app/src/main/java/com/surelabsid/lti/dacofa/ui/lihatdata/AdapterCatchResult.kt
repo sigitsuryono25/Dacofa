@@ -1,5 +1,6 @@
 package com.surelabsid.lti.dacofa.ui.lihatdata
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,9 +49,10 @@ class AdapterCatchResult(
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun addItem(mListDetail: List<DetailTangkapan>, clearIt: Boolean = false) {
         if (clearIt)
-            mList.removeAll(mList)
+            mList.removeAll(mList.toSet())
 
         mList.addAll(mListDetail)
         notifyDataSetChanged()

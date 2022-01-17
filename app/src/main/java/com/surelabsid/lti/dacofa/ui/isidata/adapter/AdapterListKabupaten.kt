@@ -1,5 +1,6 @@
 package com.surelabsid.lti.dacofa.ui.isidata.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -24,9 +25,10 @@ class AdapterListKabupaten(
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun addItem(newListKab: List<WilayahKabupaten?>, clearIt: Boolean = false) {
         if (clearIt)
-            mListKab.removeAll(mListKab)
+            mListKab.removeAll(mListKab.toSet())
         this.mListKab = newListKab.toMutableList()
         notifyDataSetChanged()
     }
@@ -44,7 +46,7 @@ class AdapterListKabupaten(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.onBindItem(mListKab.get(position))
+        holder.onBindItem(mListKab[position])
     }
 
     override fun getItemCount(): Int {

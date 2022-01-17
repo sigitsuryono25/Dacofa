@@ -118,7 +118,7 @@ class LihatDetailActivity : Baseapp() {
 
     private fun setToView(h: HeaderLokasi?) {
         doAsync {
-            headerLokasi = db.headerLokasiDao().getAllHeaderById(h?.id.toString()).get(0)
+            headerLokasi = db.headerLokasiDao().getAllHeaderById(h?.id.toString())[0]
             runOnUiThread {
                 binding.country.text = headerLokasi?.id_negara
                 binding.tanggal.text = headerLokasi?.tanggal

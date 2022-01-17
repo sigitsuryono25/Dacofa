@@ -1,5 +1,6 @@
 package com.surelabsid.lti.dacofa.ui.isidata.list
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -77,6 +78,7 @@ class ProvinsiActivity : AppCompatActivity() {
         return true
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun filterProvinsi(query: String?) {
         val filteredData = listProv?.filter {
             it?.nama?.contains(query.toString(), true) == true

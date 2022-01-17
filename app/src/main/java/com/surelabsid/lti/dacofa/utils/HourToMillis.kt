@@ -59,31 +59,11 @@ object HourToMillis {
         return sdf.format(c.time)
     }
 
-    fun millisToHour(millis: Long): String {
-        val sdf = SimpleDateFormat("HH:mm", Locale.ENGLISH)
-        val c = Calendar.getInstance()
-        c.timeInMillis = millis
-        return sdf.format(c.time)
-    }
-
     fun millisToCustomFormat(millis: Long, format: String = "dd/MM/yyyy HH:mm"): String {
         val sdf = SimpleDateFormat(format, Locale.ENGLISH)
         val c = Calendar.getInstance()
         c.timeInMillis = millis
         return sdf.format(c.time)
-    }
-
-    fun dateHourToMillis(date: String): Long? {
-        val sdf = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
-        var millis: Long? = null
-        try {
-            val mDate = sdf.parse(date)
-            millis = mDate?.time
-            Log.d("DATE", millis.toString())
-        } catch (e: ParseException) {
-            e.printStackTrace()
-        }
-        return millis
     }
 
     fun dateDiff(oldDate: String, format: String = "yyyy-MM-dd HH:mm:ss"): Long {
@@ -95,9 +75,8 @@ object HourToMillis {
             val seconds = diff / 1000
             val minutes = seconds / 60
             val hours = minutes / 60
-            val days = hours / 24
 
-            return days
+            return hours / 24
 
         } catch (e: ParseException) {
             e.printStackTrace()

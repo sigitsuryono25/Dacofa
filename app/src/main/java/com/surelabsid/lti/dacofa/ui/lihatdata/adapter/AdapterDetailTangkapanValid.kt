@@ -1,5 +1,6 @@
 package com.surelabsid.lti.dacofa.ui.lihatdata.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,9 +48,10 @@ class AdapterDetailTangkapanValid : RecyclerView.Adapter<AdapterDetailTangkapanV
         )
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun addItem(list: List<DataTangkapanItem?>, clearAll: Boolean = false){
         if(clearAll)
-            mListData.removeAll(mListData)
+            mListData.removeAll(mListData.toSet())
 
 
         mListData.addAll(list)

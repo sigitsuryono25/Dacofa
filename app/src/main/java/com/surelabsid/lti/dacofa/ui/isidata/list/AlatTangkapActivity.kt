@@ -1,28 +1,25 @@
 package com.surelabsid.lti.dacofa.ui.isidata.list
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Adapter
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.surelabsid.lti.dacofa.R
 import com.surelabsid.lti.dacofa.base.Baseapp
-import com.surelabsid.lti.dacofa.database.Countries
-import com.surelabsid.lti.dacofa.database.WilayahKabupaten
+import com.surelabsid.lti.dacofa.database.Fishinggear
 import com.surelabsid.lti.dacofa.databinding.ActivityNegaraBinding
 import com.surelabsid.lti.dacofa.db
-import com.surelabsid.lti.dacofa.ui.isidata.adapter.AdapterListNegara
+import com.surelabsid.lti.dacofa.ui.isidata.adapter.AdapterAlatTangkap
 import org.jetbrains.anko.doAsync
 
-class NegaraActivity : Baseapp() {
+class AlatTangkapActivity : Baseapp() {
     private lateinit var binding: ActivityNegaraBinding
-    private var mListCountries: List<Countries?>? = null
-    private lateinit var adapterListNegara : AdapterListNegara
+    private var mListFishinggear: List<Fishinggear?>? = null
+    private lateinit var adapterListAlatTangkap: AdapterAlatTangkap
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNegaraBinding.inflate(layoutInflater)
@@ -33,15 +30,15 @@ class NegaraActivity : Baseapp() {
             setDisplayHomeAsUpEnabled(true)
         }
 
-        adapterListNegara = AdapterListNegara {
+        adapterListAlatTangkap = AdapterAlatTangkap {
             val i = Intent()
-            i.putExtra(COUNTRY_CODE, it?.alpha_2)
-            i.putExtra(COUNTRY_NAME, it?.name)
-            setResult(Activity.RESULT_OK, i)
+            i.putExtra(FISHINGGEAR_NAME, it?.nama_fishing_gear)
+            i.putExtra(FISHINGGEAR_ID, it?.id)
+            setResult(RESULT_OK, i)
             finish()
         }
 
-        this.getListNegara()
+        this.getListAlatTangkap()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -68,9 +65,9 @@ class NegaraActivity : Baseapp() {
             override fun onQueryTextChange(newText: String?): Boolean {
                 newText?.let {
                     if (it.length > 3) {
-                        filterNegara(it)
+                        filterAlatTangkap(it)
                     } else {
-                        adapterListNegara.addItem(mListCountries!!, true)
+                        adapterListAlatTangkap.addItem(mListFishinggear!!, true)
                     }
                 }
                 return false
@@ -80,30 +77,30 @@ class NegaraActivity : Baseapp() {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun filterNegara(query: String?) {
-        val filteredData = mListCountries?.filter {
-            it?.name?.contains(query.toString(), true) == true
+    private fun filterAlatTangkap(query: String?) {
+        val filteredData = mListFishinggear?.filter {
+            it?.nama_fishing_gear?.contains(query.toString(), true) == true
         }
-        adapterListNegara.addItem(filteredData!!)
-        adapterListNegara.notifyDataSetChanged()
+        adapterListAlatTangkap.addItem(filteredData!!)
+        adapterListAlatTangkap.notifyDataSetChanged()
     }
 
 
-    private fun getListNegara() {
+    private fun getListAlatTangkap() {
         doAsync {
-            mListCountries = db.daftarNegaraDao().getAllCountries()
-            mListCountries?.let { adapterListNegara.addItem(it) }
+            mListFishinggear = db.daftarFishingGearDao().getAllFishingGear()
+            mListFishinggear?.let { adapterListAlatTangkap.addItem(it) }
             runOnUiThread {
                 binding.rvNegara.apply {
-                    adapter = adapterListNegara
-                    layoutManager = LinearLayoutManager(this@NegaraActivity)
+                    adapter = adapterListAlatTangkap
+                    layoutManager = LinearLayoutManager(this@AlatTangkapActivity)
                 }
             }
         }
     }
 
     companion object {
-        const val COUNTRY_CODE = "countryCode"
-        const val COUNTRY_NAME = "countryName"
+        const val FISHINGGEAR_NAME = "fishinggearName"
+        const val FISHINGGEAR_ID = "fishingGearId"
     }
 }

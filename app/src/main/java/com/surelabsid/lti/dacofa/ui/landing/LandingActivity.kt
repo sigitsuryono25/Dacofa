@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.browser.customtabs.CustomTabsIntent
+import com.surelabsid.lti.dacofa.DownloaderActivity
 import com.surelabsid.lti.dacofa.base.Baseapp
 import com.surelabsid.lti.dacofa.databinding.ActivityLandingBinding
 import com.surelabsid.lti.dacofa.network.NetworkModule
@@ -27,6 +28,13 @@ class LandingActivity : Baseapp() {
                     IsiDataActivity::class.java
                 ).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             )
+        }
+
+        binding.updateDataOffline.setOnClickListener {
+            Intent(this@LandingActivity, DownloaderActivity::class.java).apply{
+                putExtra("from", "landing")
+                startActivity(this)
+            }
         }
 
         binding.lihatData.setOnClickListener {
