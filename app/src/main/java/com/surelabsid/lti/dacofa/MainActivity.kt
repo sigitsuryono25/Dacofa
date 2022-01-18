@@ -136,28 +136,20 @@ class MainActivity : Baseapp() {
         user.passwd = passwd
         user.userid = userid
 
-        NetworkModule.getService().getCredential(user)
-            .enqueue(object : retrofit2.Callback<ResponseUser> {
-                override fun onResponse(
-                    call: Call<ResponseUser>,
-                    response: Response<ResponseUser>
-                ) {
-                    pd.dismiss()
-                    val res = response.body()
-                    if (res?.code == 200) {
-                        Prefs.putString(Constant.USERID, res.dataUser?.userid)
-                        Prefs.putString(Constant.NAMA, res.dataUser?.nama)
-                        Prefs.putString(Constant.TELP, res.dataUser?.phone)
-                        with(Intent(this@MainActivity, DownloaderActivity::class.java)) {
-                            finish()
-                            startActivity(this)
+        CoroutineScope(Dispatchers.IO).launch {
+            withContext(Dispatchers.IO) {
+                try {
+                    val res = NetworkModule.getService().getCredential(user)
+                    if(res.code == 200){
+                        pd.dismiss()
+                        updateUI(res)
+                    }else{
+                        pd.dismiss()
+                        MainScope().launch {
+                            showMessage(res.message.toString())
                         }
-                    } else {
-                        Toasty.error(this@MainActivity, res?.message.toString()).show()
                     }
-                }
-
-                override fun onFailure(call: Call<ResponseUser>, t: Throwable) {
+                } catch (t: Throwable) {
                     pd.dismiss()
                     val msg = when (t) {
                         is HttpException -> {
@@ -176,10 +168,22 @@ class MainActivity : Baseapp() {
                             getString(R.string.unknown_error)
                         }
                     }
-                    showMessage(msg)
+                    MainScope().launch {
+                        Toasty.error(this@MainActivity, msg).show()
+                    }
                 }
+            }
+        }
+    }
 
-            })
+    private fun updateUI(res: ResponseUser) {
+        Prefs.putString(Constant.USERID, res.dataUser?.userid)
+        Prefs.putString(Constant.NAMA, res.dataUser?.nama)
+        Prefs.putString(Constant.TELP, res.dataUser?.phone)
+        with(Intent(this@MainActivity, DownloaderActivity::class.java)) {
+            finish()
+            startActivity(this)
+        }
     }
 
 

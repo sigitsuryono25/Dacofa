@@ -17,7 +17,7 @@ interface ApiService {
     fun getListNegara(): retrofit2.Call<ResponseNegara>
 
     @POST("Api_user/login")
-    fun getCredential(@Body user: User): retrofit2.Call<ResponseUser>
+    suspend fun getCredential(@Body user: User): ResponseUser
 
 
     @POST("Api_fishery/retrieveData")
