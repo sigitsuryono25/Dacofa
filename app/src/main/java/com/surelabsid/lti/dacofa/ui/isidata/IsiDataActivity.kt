@@ -175,7 +175,8 @@ class IsiDataActivity : Baseapp() {
         val selectionArea = adapterArea.getPosition(dataEdit?.area)
         binding.spinnerArea.setSelection(selectionArea)
 
-
+        alatTangkap = dataEdit?.alat_tangkap
+        selectedDate = dataEdit?.tanggal
         idHeader = dataEdit?.id
 
     }
